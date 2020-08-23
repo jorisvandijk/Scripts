@@ -16,7 +16,7 @@ os.system("cd ~/Scripts/ && git status")
 print(f"\n{bcolors.green}\nDotfiles:{bcolors.ENDC}")
 os.system("cd ~/ && /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME status")
 
-question = input("What would you like to do?\n(1) Push repositories\n(2) Pull repositories\n:")\
+question = input("What would you like to do?\n(1) Push repositories\n(2) Pull repositories\n(3) Quit\n:")\
 
 if question == "1":
     repo = input("\nWhich repository do you want to update?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n:")
@@ -102,7 +102,10 @@ elif question == "2":
     else:
         print("That is not a repository.")
         quit()
-        
+
+elif question == "3":
+    quit()
+
 else:
     print("Wrong input.")
     quit()
