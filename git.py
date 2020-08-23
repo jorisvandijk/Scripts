@@ -3,7 +3,13 @@
 
 import os
 
-repo = input("Which repo do you want to update?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n:")
+class bcolors:
+    green = '\033[92m'
+    ENDC = '\033[0m'
+
+
+print(f"Warning: No active frommets remain. Continue?")
+repo = input("Which repository do you want to update?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n(c) Check all repositories for changes.\n:")
 
 if repo == "1":
     folder = "/home/joris/GitLab/python/"
@@ -23,18 +29,33 @@ elif repo == "3":
     add = "add ."
     origin = "origin"
 
-else:
+elif repo == "4":
     folder = "/home/joris/"
     git = "/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
     add = "add -u"
     origin = ""
+
+elif repo == "c":
+    print(f"{bcolors.green}Python:{bcolors.ENDC}")
+    os.system("cd ~/GitLab/python/ && git status")
+    print(f"\n{bcolors.green}Obsidian:{bcolors.ENDC}")
+    os.system("cd ~/Notes/joris/ && git status")
+    print(f"\n{bcolors.green}Scripts:{bcolors.ENDC}")
+    os.system("cd ~/Scripts/ && git status")
+    print(f"\n{bcolors.green}Dotfiles:{bcolors.ENDC}")
+    os.system("cd ~/ && /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME status")
+    quit()
+
+else:
+    print("That is not a repository.")
+    quit()
       
 os.chdir(f"{folder}")
 os.system(f"{git} status")
-changes = input("\nPush all changes? (y/n) or (q) to quit\n:")
+changes = input("\nPush all changes? (y/n) or (q) to quit.\n:")
 
 if changes == "y":
-    commit = input("\nPlease add a commit message\n:")
+    commit = input("\nPlease add a commit message.\n:")
     os.system(f"{git} {add} && {git} commit -m \"{commit}\"")
     os.system(f"{git} status")
 
