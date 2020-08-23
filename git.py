@@ -7,21 +7,18 @@ class bcolors:
     green = '\033[92m'
     ENDC = '\033[0m'
 
-question = input("\nWhat would you like to do?\n(1) Check status of all repositories\n(2) Push repositories\n(3) Pull repositories\n:")\
+print(f"{bcolors.green}\nPython:{bcolors.ENDC}")
+os.system("cd ~/GitLab/python/ && git status")
+print(f"\n{bcolors.green}\nObsidian:{bcolors.ENDC}")
+os.system("cd ~/Notes/joris/ && git status")
+print(f"\n{bcolors.green}\nScripts:{bcolors.ENDC}")
+os.system("cd ~/Scripts/ && git status")
+print(f"\n{bcolors.green}\nDotfiles:{bcolors.ENDC}")
+os.system("cd ~/ && /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME status")
+
+question = input("What would you like to do?\n(1) Push repositories\n(2) Pull repositories\n:")\
 
 if question == "1":
-
-    print(f"{bcolors.green}\nPython:{bcolors.ENDC}")
-    os.system("cd ~/GitLab/python/ && git status")
-    print(f"\n{bcolors.green}\nObsidian:{bcolors.ENDC}")
-    os.system("cd ~/Notes/joris/ && git status")
-    print(f"\n{bcolors.green}\nScripts:{bcolors.ENDC}")
-    os.system("cd ~/Scripts/ && git status")
-    print(f"\n{bcolors.green}\nDotfiles:{bcolors.ENDC}")
-    os.system("cd ~/ && /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME status")
-    quit()
-
-elif question == "2":
     repo = input("\nWhich repository do you want to update?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n:")
 
     if repo == "1":
@@ -81,7 +78,7 @@ elif question == "2":
     else:
         quit()
 
-elif question == "3":
+elif question == "2":
     repo = input("\nWhich repository do you want to pull from?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n:")
 
     if repo == "1":
