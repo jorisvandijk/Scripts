@@ -15,11 +15,13 @@ print(f"\n{bcolors.green}\nScripts:{bcolors.ENDC}")
 os.system("cd ~/Scripts/ && git status")
 print(f"\n{bcolors.green}\nDotfiles:{bcolors.ENDC}")
 os.system("cd ~/ && /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME status")
+print(f"{bcolors.green}\nWebsite:{bcolors.ENDC}")
+os.system("cd ~/GitLab/website/ && git status")
 
-question = input("What would you like to do?\n(1) Push repositories\n(2) Pull repositories\n(3) Quit\n:")\
+question = input("\nWhat would you like to do?\n(1) Push repositories\n(2) Pull repositories\n(3) Quit\n:")\
 
 if question == "1":
-    repo = input("\nWhich repository do you want to update?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n:")
+    repo = input("\nWhich repository do you want to update?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n(5) Website\n:")
 
     if repo == "1":
         folder = "/home/joris/GitLab/python/"
@@ -44,6 +46,12 @@ if question == "1":
         git = "/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
         add = "add -u"
         origin = ""
+
+    elif repo == "5":
+        folder = "/home/joris/GitLab/website/"
+        git = "git"
+        add = "add ."
+        origin = "origin"
 
     else:
         print("That is not a repository.")
@@ -79,7 +87,7 @@ if question == "1":
         quit()
 
 elif question == "2":
-    repo = input("\nWhich repository do you want to pull from?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n:")
+    repo = input("\nWhich repository do you want to pull from?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n(5) Website\n:")
 
     if repo == "1":
         os.chdir(f"/home/joris/GitLab/python/")
@@ -98,6 +106,10 @@ elif question == "2":
     elif repo == "4":
         os.chdir(f"/home/joris/")
         os.system(f"/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME pull")
+   
+    elif repo == "5":
+        os.chdir(f"/home/joris/GitLab/website/")
+        os.system(f"git pull")
 
     else:
         print("That is not a repository.")
