@@ -9,19 +9,21 @@ class bcolors:
 
 print(f"{bcolors.green}\nPython:{bcolors.ENDC}")
 os.system("cd ~/GitLab/python/ && git status")
-print(f"\n{bcolors.green}\nObsidian:{bcolors.ENDC}")
+print(f"\n{bcolors.green}Obsidian:{bcolors.ENDC}")
 os.system("cd ~/Notes/joris/ && git status")
-print(f"\n{bcolors.green}\nScripts:{bcolors.ENDC}")
+print(f"\n{bcolors.green}Scripts:{bcolors.ENDC}")
 os.system("cd ~/Scripts/ && git status")
-print(f"\n{bcolors.green}\nDotfiles:{bcolors.ENDC}")
+print(f"\n{bcolors.green}Dotfiles:{bcolors.ENDC}")
 os.system("cd ~/ && /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME status")
-print(f"{bcolors.green}\nWebsite:{bcolors.ENDC}")
-os.system("cd ~/GitLab/website/ && git status")
+print(f"\n{bcolors.green}Joris.tech:{bcolors.ENDC}")
+os.system("cd ~/GitLab/joris.tech/ && git status")
+print(f"\n{bcolors.green}Jorisvandijk.com:{bcolors.ENDC}")
+os.system("cd ~/GitLab/jorisvandijk.com/ && git status")
 
 question = input("\nWhat would you like to do?\n(1) Push repositories\n(2) Pull repositories\n(3) Quit\n:")\
 
 if question == "1":
-    repo = input("\nWhich repository do you want to update?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n(5) Website\n:")
+    repo = input("\nWhich repository do you want to update?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n(5) Joris.tech\n(6) Jorisvandijk.com\n:")
 
     if repo == "1":
         folder = "/home/joris/GitLab/python/"
@@ -48,7 +50,13 @@ if question == "1":
         origin = ""
 
     elif repo == "5":
-        folder = "/home/joris/GitLab/website/"
+        folder = "/home/joris/GitLab/joris.tech/"
+        git = "git"
+        add = "add ."
+        origin = "origin"
+
+    elif repo == "6":
+        folder = "/home/joris/GitLab/jorisvandijk.com/"
         git = "git"
         add = "add ."
         origin = "origin"
@@ -87,7 +95,7 @@ if question == "1":
         quit()
 
 elif question == "2":
-    repo = input("\nWhich repository do you want to pull from?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n(5) Website\n:")
+    repo = input("\nWhich repository do you want to pull from?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n(5) Joris.tech\n(6) Jorisvandijk.com\n:")
 
     if repo == "1":
         os.chdir(f"/home/joris/GitLab/python/")
@@ -108,7 +116,11 @@ elif question == "2":
         os.system(f"/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME pull")
    
     elif repo == "5":
-        os.chdir(f"/home/joris/GitLab/website/")
+        os.chdir(f"/home/joris/GitLab/joris.tech/")
+        os.system(f"git pull")
+
+    elif repo == "6":
+        os.chdir(f"/home/joris/GitLab/jorisvandijk.com/")
         os.system(f"git pull")
 
     else:
