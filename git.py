@@ -29,37 +29,31 @@ if question == "1":
         folder = "/home/joris/GitLab/python/"
         git = "git"
         add = "add ."
-        origin = "origin"
 
     elif repo == "2":
         folder = "/home/joris/Notes/joris/"
         git = "git"
         add = "add ."
-        origin = "origin"
 
     elif repo == "3":
         folder = "/home/joris/Scripts/"
         git = "git"
         add = "add ."
-        origin = "origin"
 
     elif repo == "4":
         folder = "/home/joris/"
         git = "/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
         add = "add -u"
-        origin = ""
 
     elif repo == "5":
         folder = "/home/joris/GitLab/joris.tech/"
         git = "git"
         add = "add ."
-        origin = "origin"
 
     elif repo == "6":
         folder = "/home/joris/GitLab/jorisvandijk.com/"
         git = "git"
         add = "add ."
-        origin = "origin"
 
     else:
         print("That is not a repository.")
@@ -90,7 +84,7 @@ if question == "1":
     push = input("\nAre you sure you wish to push the changes? (y/n)\n:")
         
     if push == "y":
-        os.system(f"{git} push {origin}")
+        os.system(f"{git} push")
     else:
         quit()
 
