@@ -38,7 +38,7 @@ if question == "1":
     elif repo == "3":
         folder = "/home/joris/Scripts/"
         git = "git"
-        add = "add ."
+        add = "add -u"
 
     elif repo == "4":
         folder = "/home/joris/"
