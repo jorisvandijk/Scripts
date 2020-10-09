@@ -20,7 +20,7 @@ os.system("cd ~/GitLab/joris.tech/ && git status")
 print(f"\n{bcolors.green}Jorisvandijk.com:{bcolors.ENDC}")
 os.system("cd ~/GitLab/jorisvandijk.com/ && git status")
 
-question = input("\nWhat would you like to do?\n(1) Push repositories\n(2) Pull repositories\n(3) Quit\n:")\
+question = input("\nWhat would you like to do?\n(1) Push repositories\n(2) Pull repositories\n(q) Quit\n:")\
 
 if question == "1":
     repo = input("\nWhich repository do you want to update?\n(1) Python\n(2) Obsidian\n(3) Scripts\n(4) Dotfiles\n(5) Joris.tech\n(6) Jorisvandijk.com\n:")
@@ -121,7 +121,7 @@ elif question == "2":
         print("That is not a repository.")
         quit()
 
-elif question == "3":
+elif question == "q":
     quit()
 
 else:
