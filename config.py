@@ -22,4 +22,4 @@ elif question == "5":
 else:
     quit()
 
-os.system(f"nvim {command}")  
+os.system(f"leafpad {command}")  
