@@ -56,8 +56,11 @@ elif files == "2":
 
 elif files == "3":
     doc = input("\nWhich document would you like to add?\n:")
+    os.system(f"git add {doc}")
+    os.system(f"git status")
+    
     commit = input("\nPlease add a commit message.\n:")
-    os.system(f"git add {doc} && git commit -m \"{commit}\"")
+    os.system(f"git commit -m \"{commit}\"")
     os.system(f"git status")
 
 else:
