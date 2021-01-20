@@ -19,6 +19,8 @@ os.system("cd ~/Pictures/wallpapers/ && git status")
 print(f"{bcolors.green}\nDotfiles:{bcolors.ENDC}")
 os.system("cd ~/Dotfiles/ && git status")
 
+print(f"{bcolors.green}\nNotes:{bcolors.ENDC}")
+os.system("cd ~/Documents/Notes/ && git status")
 
 print("\nWhich repository would you like to update?\n")
 repo = input("1. Scripts\n2. FreeTube\n3. Wallpapers\n4. Dotfiles\n5. Notes\n:")
