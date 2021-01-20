@@ -42,7 +42,7 @@ else:
 os.chdir(f"{folder}")
 os.system(f"git status")
 print("\nWhat would you like to commit?\n")
-files = input("\n1. All files\n2. All modified files\n3. A specific file\n:")
+files = input("\n1. All files\n2. Modified files\n3. A specific file\n:")
 
 if files == "1":
     commit = input("\nPlease add a commit message.\n:")
@@ -66,6 +66,6 @@ else:
 push = input("\nAre you sure you wish to push the changes? (y/n)\n:")
     
 if push == "y":
-    os.system(f"git push")
+    os.system(f"\ngit push")
 else:
     quit()
