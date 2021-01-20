@@ -21,7 +21,7 @@ os.system("cd ~/Dotfiles/ && git status")
 
 
 print("\nWhich repository would you like to update?\n")
-repo = input("1. Scripts\n2. FreeTube\n3. Wallpapers\n4. Dotfiles\n:")
+repo = input("1. Scripts\n2. FreeTube\n3. Wallpapers\n4. Dotfiles\n5. Notes\n:")
 
 if repo == "1":
     folder = "/home/joris/Scripts/"
@@ -34,6 +34,9 @@ elif repo == "3":
 
 elif repo == "4":
     folder = "/home/joris/Dotfiles"
+
+elif repo == "5":
+    folder = "/home/joris/Documents/Notes/"
 
 else:
     print("That is not a repository.")
