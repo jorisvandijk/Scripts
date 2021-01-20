@@ -25,19 +25,15 @@ repo = input("1. Scripts\n2. FreeTube\n3. Wallpapers\n4. Dotfiles\n:")
 
 if repo == "1":
     folder = "/home/joris/Scripts/"
-    add = "add ."
 
 elif repo == "2":
     folder = "/home/joris/.config/FreeTube/"
-    add = "add ."
 
 elif repo == "3":
     folder = "/home/joris/Pictures/wallpapers/"
-    add = "add -u"
 
 elif repo == "4":
     folder = "/home/joris/Dotfiles"
-    add = "add -u"
 
 else:
     print("That is not a repository.")
@@ -45,16 +41,23 @@ else:
     
 os.chdir(f"{folder}")
 os.system(f"git status")
-files = input("\nPush (a)ll or just the (m)odified files? (a/m)\n:")
+print("\nWhat would you like to commit?\n")
+files = input("\n1. All files\n2. All modified files\n3. A specific file\n:")
 
-if files == "a":
+if files == "1":
     commit = input("\nPlease add a commit message.\n:")
     os.system(f"git add . && git commit -m \"{commit}\"")
     os.system(f"git status")
 
-elif files == "m":
+elif files == "2":
     commit = input("\nPlease add a commit message.\n:")
     os.system(f"git add -u && git commit -m \"{commit}\"")
+    os.system(f"git status")
+
+elif files == "3":
+    doc = input("\nWhich document would you like to add?\n:")
+    commit = input("\nPlease add a commit message.\n:")
+    os.system(f"git add {doc} && git commit -m \"{commit}\"")
     os.system(f"git status")
 
 else:
