@@ -58,7 +58,7 @@ elif files == "3":
     doc = input("\nWhich document would you like to add?\n:")
     os.system(f"git add {doc}")
     os.system(f"git status")
-    
+
     commit = input("\nPlease add a commit message.\n:")
     os.system(f"git commit -m \"{commit}\"")
     os.system(f"git status")
@@ -69,6 +69,6 @@ else:
 push = input("\nAre you sure you wish to push the changes? (y/n)\n:")
     
 if push == "y":
-    os.system(f"\ngit push")
+    os.system(f"git push")
 else:
     quit()
