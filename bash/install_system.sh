@@ -8,7 +8,7 @@ menu()
 	{
 		echo "usage:   " $me "[OPTION]"
 		echo " "
-		echo "init:    Do something"
+		echo "init:    Do something!"
 		echo " "
 
 	}
