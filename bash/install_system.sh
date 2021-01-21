@@ -25,12 +25,14 @@ menu()
 		echo "ssh:      Set up the .ssh keys."
 		echo "prog:     Install applications."
 		echo " "
+		echo " "
+		echo " "
 
 	}
 
 init() #the basics
 	{
-		sudo pacman -Syyu  &
+		sudo pacman -Syyu  # Issues about locking db
 		sudo pacman -S  --noconfirm git stow firefox
 		echo "Done!"
 	}
@@ -38,34 +40,46 @@ init() #the basics
 git() #grab some repos
 	{
 		cd ~/ || return
-		echo "Grabbing repositories..."
-		git clone git@gitlab.com:jorisvandijk/scripts.git &
-		git clone git@gitlab.com:jorisvandijk/freetube.git &
-		git clone git@gitlab.com:jorisvandijk/wallpapers.git &
-		git clone git@gitlab.com:jorisvandijk/dotfiles.git &
-		git clone git@gitlab.com:jorisvandijk/notes.git
+		echo "Grabbing repos..." #repeats endlessly
+
+		git clone https://gitlab.com/jorisvandijk/scripts.git
+		#sudo git clone git@gitlab.com:jorisvandijk/scripts.git 
+		git clone https://gitlab.com/jorisvandijk/freetube.git
+		#sudo git clone git@gitlab.com:jorisvandijk/freetube.git 
+		git clone https://gitlab.com/jorisvandijk/wallpapers.git
+		#sudo git clone git@gitlab.com:jorisvandijk/wallpapers.git 
+		git clone https://gitlab.com/jorisvandijk/dotfiles.git
+		#sudo git clone git@gitlab.com:jorisvandijk/dotfiles.git 
+		git clone https://gitlab.com/jorisvandijk/notes.git
+		#sudo git clone git@gitlab.com:jorisvandijk/notes.git
+
 		echo "Moving stuff around..."
-		mv scripts Scripts &
-		mv freetube ~/.config/FreeTube &
-		mv wallpapers Pictures/wallpapers &
-		mv dotfiles Dotfiles &
-		mv notes ~/Documents/Notes &
+		mv scripts Scripts && cd Scripts 
+		#change from http to ssh
+		git remote set-url origin git@github.com:jorisvandijk/scripts.git 
+		cd ~/ || return
+		mv freetube ~/.config/FreeTube 
+		mv wallpapers Pictures/wallpapers 
+		mv dotfiles Dotfiles 
+		mv notes ~/Documents/Notes 
 		echo "Done!"
 	}
 
 stow() #fling around some dotfiles
-	{
-	echo "Moving dotfiles around..."
-	cd ~/Dotfiles/ || return
-	for d in *; do stow -t ~ "$d" ;done
-	echo "Done!"
+		{
+		echo "Moving dotfiles around..."
+		cd ~/Dotfiles/ || return
+		for d in *; do stow -t ~ "$d" ;done
+		echo "Done!"
 	}
 
 ssh() #get me them sweet keys
 	{
 		echo "Creating ssh keys. Do not add a passphrase..."
 		ssh-keygen -t ed25519 -C "JorisPC"
+		echo " "
 		echo "Now copy the following key and head to https://gitlab.com/-/profile/keys and fill out the form."
+		cat ~/.ssh/id_ed25519.pub # To grab the key. Also add whitespace!		
 		echo "Done!"
 	}
 
