@@ -1,5 +1,9 @@
-# Simple script to update several repos.
-# I should be using a function...
+#
+# Usage: Automate pushing files to GitLab with git.
+#
+# Script by Joris van Dijk | gitlab.com/jorisvandijk 
+#
+#          Published under GPL-3.0-or-later
 
 import os
 
