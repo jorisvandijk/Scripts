@@ -1,5 +1,8 @@
 #!/bin/bash
-# Jorisvandijk.com - Post install script.
+#
+# Usage: Will set up a fresh install of Arch Linux to my liking
+#
+# Script by Joris van Dijk | gitlab.com/jorisvandijk 
 
 C='\033[1;35m' # Color
 NC='\033[0m'   # No Color
@@ -18,14 +21,20 @@ while true; do
     case $yn in
         [Yy]* ) echo
                 echo -e "${C}Running updates and such...${NC}"
+                echo
                 sudo pacman -Syyu
+                echo
                 echo -e "${C}Done!${NC}"
                 echo
-                echo -e "${C}Installing required applications...${NC}"
+                echo -e "${C}Installing the base packages...${NC}"
+                echo # Base packages
                 sudo pacman -S --noconfirm git stow yay i3-gaps i3block rofi exa leafpad 
-                # For styling!
-                sudo pacman -S papirus-icon-theme nordic-theme-git awesome-terminal-fonts ttf-jetbrains-mono
-                yay -S i3exit
+                echo -e "${C}Installing packages for styling...${NC}"
+                echo # Styling packages
+                sudo pacman -S --noconfirm papirus-icon-theme nordic-theme-git awesome-terminal-fonts ttf-jetbrains-mono
+                echo -e "${C}Installing AUR packages...${NC}"
+                echo # AUR packages
+                yay -S --noconfirm i3exit
                 echo
                 echo -e "${C}Done!${NC}" ; break;;
         [Nn]* ) exit;;
@@ -70,26 +79,28 @@ echo
 echo -e "${C}Next up, some Stow magic!${NC}"
 echo
 cd $HOME/Dotfiles/ || return
-
-echo -e "${C}Movin' files around...${NC}"
 for d in *; do stow -t ~ "$d" ;done
 echo -e "${C}Done!${NC}"
 echo
-echo -e "${C}Hold on to your hat... we're gonna smack some sweet keys!${NC}"
+echo -e "${C}Creating SSH keys...${NC}"
 echo
-echo "Creating ssh keys."
-echo
-echo "DO NOT ENTER A PASSPHRASE!"
+echo -e "${C}DO NOT ENTER A PASSPHRASE!${NC}"
 echo
 ssh-keygen -t ed25519 -C "JorisPC"
-echo " "
-echo "Now copy the following key and head to https://gitlab.com/-/profile/keys and fill out the form."
-cat ~/.ssh/id_ed25519.pub # To grab the key. Also add whitespace!		
-echo "Done!"
+echo 
+echo -e "${C}Now copy the following key and head to https://gitlab.com/-/profile/keys and fill out the form.${NC}"
+echo
+cat ~/.ssh/id_ed25519.pub 
+echo	
+echo -e "${C}Done!${NC}"
+
+
+
+
 
 echo -e "${C} ${NC}"
 
-# Outstanding issues:
+# Open issues:
 # 1. no gtk theme support
 # 2. install other applications needed
 # 3. ...
