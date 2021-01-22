@@ -1,8 +1,12 @@
 #!/bin/bash
 #
-# Usage: Will set up a fresh install of Arch Linux to my liking
+# Usage: Will create my instance of i3 complete with all
+#        settings and dotfiles as they should be. It's
+#        my post-install script.
 #
 # Script by Joris van Dijk | gitlab.com/jorisvandijk 
+#
+#          Published under GPL-3.0-or-later
 
 C='\033[1;35m' # Color
 NC='\033[0m'   # No Color
