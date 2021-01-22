@@ -26,7 +26,7 @@ while true; do
         [Yy]* ) echo
                 echo -e "${C}Running updates and such...${NC}"
                 echo
-                sudo pacman -Syyu
+                sudo pacman -Syyu --noconfirm 
                 echo
                 echo -e "${C}Installing the base packages...${NC}"
                 # Base packages
@@ -82,6 +82,9 @@ git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
 echo
 echo -e "${C}Grabbing Firefox settings...${NC}"
 git clone https://gitlab.com/jorisvandijk/firefox.git $HOME/.mozilla/firefox/
+echo
+echo -e "${C}Grabbing FreeTube settings...${NC}"
+git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube/
 echo
 echo -e "${C}Next up, some Stow magic!${NC}"
 echo
