@@ -1,9 +1,0 @@
-autotiling
-flashfocus-git
-freetube-bin
-fsearch-git
-i3exit
-nordic-theme-git
-optimus-manager-git
-papirus-folders-nordic
-touchpad-indicator-git

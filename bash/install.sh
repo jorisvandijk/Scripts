@@ -31,14 +31,17 @@ while true; do
                 echo -e "${C}Done!${NC}"
                 echo
                 echo -e "${C}Installing the base packages...${NC}"
-                echo # Base packages
-                sudo pacman -S --noconfirm git stow yay i3-gaps i3block rofi exa leafpad 
+                echo 
+                # Base packages
+                sudo pacman -S --noconfirm git stow yay i3-gaps i3block rofi exa leafpad dunst feh
                 echo -e "${C}Installing packages for styling...${NC}"
-                echo # Styling packages
+                echo 
+                # Styling packages
                 sudo pacman -S --noconfirm papirus-icon-theme nordic-theme-git awesome-terminal-fonts ttf-jetbrains-mono
                 echo -e "${C}Installing AUR packages...${NC}"
-                echo # AUR packages
-                yay -S --noconfirm i3exit
+                echo 
+                # AUR packages
+                yay -S --noconfirm i3exit papirus-folders-nordic autotiling
                 echo
                 echo -e "${C}Done!${NC}" ; break;;
         [Nn]* ) exit;;
@@ -54,6 +57,7 @@ while true; do
     case $yn in
         [Yy]* ) echo
                 echo -e "${C}Removing old files..${NC}"
+                echo
                 cd $HOME || return
                 rm -rf $HOME/.config
                 rm $HOME/.bashrc  ; break;;
@@ -68,9 +72,6 @@ echo
 echo -e "${C}Grabbing Scripts...${NC}"
 git clone https://gitlab.com/jorisvandijk/scripts.git $HOME/Scripts
 echo
-echo -e "${C}Grabbing FreeTube...${NC}"
-git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
-echo
 echo -e "${C}Grabbing Wallpapers...${NC}"
 git clone https://gitlab.com/jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
 echo
@@ -80,10 +81,16 @@ echo
 echo -e "${C}Grabbing Notes...${NC}"
 git clone https://gitlab.com/jorisvandijk/notes.git $HOME/Documents/Notes
 echo
+echo -e "${C}Grabbing FreeTube...${NC}"
+git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
+echo
+echo -e "${C}Grabbing Firefox settings...${NC}"
+git clone https://gitlab.com/jorisvandijk/firefox.git $HOME/.mozilla/firefox/
+echo
 echo -e "${C}Next up, some Stow magic!${NC}"
 echo
 cd $HOME/Dotfiles/ || return
-for d in *; do stow -t ~ "$d" ;done
+for d in *; do stow -v -t ~ "$d" ;done
 echo -e "${C}Done!${NC}"
 echo
 echo -e "${C}Creating SSH keys...${NC}"
@@ -98,15 +105,5 @@ cat ~/.ssh/id_ed25519.pub
 echo	
 echo -e "${C}Done!${NC}"
 
-
-
-
-
-echo -e "${C} ${NC}"
-
 # Open issues:
-# 1. no gtk theme support
-# 2. install other applications needed
-# 3. ...
-#
-#
+# 1. bookmarks in gtk only work if the username is joris.
