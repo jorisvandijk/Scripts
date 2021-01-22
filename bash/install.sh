@@ -28,22 +28,18 @@ while true; do
                 echo
                 sudo pacman -Syyu
                 echo
-                echo -e "${C}Done!${NC}"
-                echo
                 echo -e "${C}Installing the base packages...${NC}"
-                echo 
                 # Base packages
                 sudo pacman -S --noconfirm git stow yay i3-gaps i3block rofi exa leafpad dunst feh
+                echo -e " "
                 echo -e "${C}Installing packages for styling...${NC}"
-                echo 
                 # Styling packages
                 sudo pacman -S --noconfirm papirus-icon-theme nordic-theme-git awesome-terminal-fonts ttf-jetbrains-mono
+                echo " "
                 echo -e "${C}Installing AUR packages...${NC}"
-                echo 
                 # AUR packages
                 yay -S --noconfirm i3exit papirus-folders-nordic autotiling
-                echo
-                echo -e "${C}Done!${NC}" ; break;;
+                echo ; break;;
         [Nn]* ) exit;;
         * ) echo 
             echo -e "${C}Yes or no, please...${NC} "
@@ -91,8 +87,6 @@ echo -e "${C}Next up, some Stow magic!${NC}"
 echo
 cd $HOME/Dotfiles/ || return
 for d in *; do stow -v -t ~ "$d" ;done
-echo -e "${C}Done!${NC}"
-echo
 echo -e "${C}Creating SSH keys...${NC}"
 echo
 echo -e "${C}DO NOT ENTER A PASSPHRASE!${NC}"
