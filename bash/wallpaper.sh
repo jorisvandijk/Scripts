@@ -5,7 +5,7 @@
 #
 #          Published under GPL-3.0-or-later             
               
-KEYWORDS="nature, backgrounds, hd"                  
+KEYWORDS="nature"                  
 
 case $1 in
   new)
