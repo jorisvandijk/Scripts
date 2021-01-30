@@ -6,7 +6,7 @@
 #
 #          Published under GPL-3.0-or-later             
               
-KEYWORDS="nature"                  
+KEYWORDS="painting, art"                  
 
 case $1 in
   new)
