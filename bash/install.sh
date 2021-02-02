@@ -30,7 +30,7 @@ while true; do
                 echo
                 echo -e "${C}Installing the base packages...${NC}"
                 # Base packages
-                sudo pacman -S --noconfirm git stow rofi exa dunst feh xfce4-terminal
+                sudo pacman -S --noconfirm git stow ssh rofi exa dunst feh xfce4-terminal
                 #echo -e " "
                 #echo -e "${C}Installing packages for styling...${NC}"
                 # Styling packages
