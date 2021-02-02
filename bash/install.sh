@@ -29,8 +29,8 @@ while true; do
                 sudo pacman -Syyu --noconfirm 
                 echo
                 echo -e "${C}Installing the base packages...${NC}"
-                sudo pacman -S --noconfirm git stow openssh rofi exa dunst feh/
-                xfce4-terminal xfce4-power-manager awesome-terminal-fonts/
+                sudo pacman -S --noconfirm git stow openssh rofi exa dunst feh \
+                xfce4-terminal xfce4-power-manager awesome-terminal-fonts \
                 ttf-jetbrains-mono scrot unclutter picom python python-pip 
                 echo
                 echo -e "${C}Installing extra packages...${NC}"
