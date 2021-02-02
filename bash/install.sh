@@ -41,7 +41,7 @@ while true; do
                 rm -rf ~/yay
                 echo 
                 echo -e "${C}Installing AUR packages...${NC}"
-                yay -S autotiling optimus-manager spotify freetube-bin
+                yay -S autotiling optimus-manager spotify 
                 echo ; break;;
         [Nn]* ) exit;;
         * ) echo 
@@ -86,6 +86,7 @@ while true; do
         git clone https://gitlab.com/jorisvandijk/notes.git $HOME/Documents/Notes
         echo
         echo -e "${C}Grabbing FreeTube...${NC}"
+        sudo -S python python-pip freetube-bin
         git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
         echo
         echo -e "${C}Grabbing Firefox settings...${NC}"
