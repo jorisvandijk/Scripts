@@ -152,6 +152,3 @@ echo
 cat ~/.ssh/id_ed25519.pub 
 echo	
 echo -e "${C}Done!${NC}"
-
-# Open issues:
-# 1. bookmarks in gtk only work if the username is joris.
