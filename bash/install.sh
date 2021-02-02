@@ -32,7 +32,8 @@ while true; do
                 echo -e "${C}Installing the base packages...${NC}"
                 sudo pacman -S --noconfirm git stow openssh rofi exa dunst feh \
                 xfce4-terminal xfce4-power-manager awesome-terminal-fonts \
-                ttf-jetbrains-mono scrot unclutter picom python python-pip 
+                ttf-jetbrains-mono scrot unclutter picom python python-pip \
+                lxappearance elementary-icon-theme gtk-theme-elementary 
                 echo
                 echo -e "${C}Installing extra packages...${NC}"
                 sudo pacman -S thunar code steam leafpad firefox
@@ -44,7 +45,7 @@ while true; do
                 rm -rf ~/yay
                 echo 
                 echo -e "${C}Installing AUR packages...${NC}"
-                yay -S autotiling optimus-manager spotify freetube-bin
+                yay -S autotiling optimus-manager spotify freetube-bin 
                 echo ; break;;
         [Nn]* ) exit;;
         * ) echo 
