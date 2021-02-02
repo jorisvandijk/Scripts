@@ -91,12 +91,12 @@ while true; do
     read -p $'\e[35mWould you like to grab non essential repos as well? (yes/no) \e[0m: ' yn
     case $yn in
         [Yy]* ) 
-        #echo -e "${C}Grabbing Wallpapers...${NC}"
-        #git clone https://gitlab.com/jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
-        #cd $HOME/Pictures/wallpapers
-        #git remote set-url origin git@gitlab.com:jorisvandijk/wallpapers.git
-        #git remote -v
-        #cd $HOME || return
+        echo -e "${C}Grabbing Wallpapers...${NC}"
+        git clone https://gitlab.com/jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
+        cd $HOME/Pictures/wallpapers
+        git remote set-url origin git@gitlab.com:jorisvandijk/wallpapers.git
+        git remote -v
+        cd $HOME || return
         echo -e "${C}Grabbing Notes...${NC}"
         git clone https://gitlab.com/jorisvandijk/notes.git $HOME/Documents/Notes
         cd $HOME/Documents/Notes
