@@ -10,6 +10,7 @@
 
 C='\033[1;35m' # Color
 NC='\033[0m'   # No Color
+GE='' # Add git email address here
 
 cd $HOME || return
 echo
@@ -72,10 +73,18 @@ echo -e "${C}Cool. Let's now grab our essential repositories...${NC}"
 echo
 echo -e "${C}Grabbing Scripts...${NC}"
 git clone https://gitlab.com/jorisvandijk/scripts.git $HOME/Scripts
+cd $HOME/Scripts
+git remote set-url origin git@gitlab.com:jorisvandijk/scripts.git
+git remote -v
+cd $HOME || return
 echo
 
 echo -e "${C}Grabbing Dotfiles...${NC}"
 git clone https://gitlab.com/jorisvandijk/dotfiles.git $HOME/Dotfiles
+cd $HOME/Dotfiles
+git remote set-url origin git@gitlab.com:jorisvandijk/dotfiles.git
+git remote -v
+cd $HOME || return
 echo
 while true; do
     echo -e "${C}Moar repos!${NC}"
@@ -84,17 +93,30 @@ while true; do
         [Yy]* ) 
         #echo -e "${C}Grabbing Wallpapers...${NC}"
         #git clone https://gitlab.com/jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
+        #cd $HOME/Pictures/wallpapers
+        #git remote set-url origin git@gitlab.com:jorisvandijk/wallpapers.git
+        #git remote -v
+        #cd $HOME || return
         echo -e "${C}Grabbing Notes...${NC}"
         git clone https://gitlab.com/jorisvandijk/notes.git $HOME/Documents/Notes
+        cd $HOME/Documents/Notes
+        git remote set-url origin git@gitlab.com:jorisvandijk/notes.git
+        git remote -v
+        cd $HOME || return
         echo
         echo -e "${C}Grabbing FreeTube...${NC}"
         git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
+        cd $HOME/.config/FreeTube
+        git remote set-url origin git@gitlab.com:jorisvandijk/freetube.git
+        git remote -v
+        cd $HOME || return
         echo
         echo -e "${C}Grabbing Firefox settings...${NC}"
         git clone https://gitlab.com/jorisvandijk/firefox.git $HOME/.mozilla/firefox/
-        echo
-        echo -e "${C}Grabbing FreeTube settings...${NC}"
-        git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube/
+        cd $HOME/.mozilla/firefox/
+        git remote set-url origin git@gitlab.com:jorisvandijk/firefox.git
+        git remote -v
+        cd $HOME || return
         echo
         echo; break;;
         [Nn]* ) exit;;
@@ -107,6 +129,10 @@ echo -e "${C}Next up, some Stow magic!${NC}"
 echo
 cd $HOME/Dotfiles/ || return
 for d in *; do stow -v -t ~ "$d" ;done
+echo -e "${C}Setting up Git${NC}"
+git config --global user.name "Joris"
+git config --global user.email ${GE}
+echo
 echo -e "${C}Creating SSH keys...${NC}"
 echo
 echo -e "${C}DO NOT ENTER A PASSPHRASE!${NC}"
