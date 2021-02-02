@@ -1,0 +1,31 @@
+#
+# Usage: Theme for i3 config file, will be merged into "config" by 
+#	 a script together with the base config (file 00).
+#
+# Theme: Nord
+#
+# Dotfile by Joris van Dijk | gitlab.com/jorisvandijk 
+#
+#          Published under GPL-3.0-or-later
+
+bar {
+      i3bar_command i3bar
+      status_command i3blocks -c ~/.config/i3/i3blocks.conf
+      position top
+      mode hide
+      hidden_state hide
+      modifier none
+      tray_padding 0
+      colors {
+      background #2E3440
+      statusline #88C0D0
+      separator #ECEFF4
+
+      # class            border  backgr. text
+      focused_workspace  #2E3440 #2E3440 #A3BE8C
+      active_workspace   #2E3440 #2E3440 #D08770
+      inactive_workspace #2E3440 #2E3440 #4C566A
+      urgent_workspace   #BF616A #2E3440 #BF616A
+      binding_mode       #2E3440 #2E3440 #A3BE8C
+    }
+}

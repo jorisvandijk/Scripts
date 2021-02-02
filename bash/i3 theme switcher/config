@@ -1,0 +1,157 @@
+#
+# Usage: Base for i3 config file, will be merged into "config" by 
+#	 a script together with a theme file.
+#
+# Dotfile by Joris van Dijk | gitlab.com/jorisvandijk 
+#
+#          Published under GPL-3.0-or-later
+
+set $mod Mod4
+set $e exec --no-startup-id
+
+set $ws1 "1" 
+set $ws2 "2" 
+set $ws3 "3" 
+set $ws4 "4" 
+set $ws5 "5" 
+set $ws6 "6" 
+set $ws7 "7" 
+set $ws8 "8" 
+
+floating_modifier $mod
+font pango:JetBrains Mono 11
+
+for_window [class="^.*"] border pixel 0, title_format "%class >> %title"
+for_window [class="Spotify"] move to workspace $ws8
+
+gaps inner 8
+gaps outer 4
+smart_gaps on
+
+# Action bindings
+bindsym $mod+Shift+Home $e i3exit logout, mode "default"
+bindsym $mod+Shift+Delete $e i3exit shutdown, mode "default"
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+bindsym $mod+x kill
+bindsym $mod+f fullscreen toggle
+bindsym $mod+b bar mode toggle
+bindsym $mod+Shift+f floating toggle
+
+bindsym $mod+a $e ~/Scripts/bash/wallpaper.sh new
+
+bindsym XF86AudioRaiseVolume $e ~/Scripts/bash/volumeControl.sh up
+bindsym XF86AudioLowerVolume $e ~/Scripts/bash/volumeControl.sh down
+bindsym XF86AudioMute $e ~/Scripts/bash/volumeControl.sh mute
+bindsym F10 $e ~/Scripts/bash/volumeControl.sh up
+bindsym F9 $e ~/Scripts/bash/volumeControl.sh down
+
+bindsym XF86MonBrightnessUp $e ~/Scripts/bash/brightnessControl.sh up
+bindsym XF86MonBrightnessDown $e ~/Scripts/bash/brightnessControl.sh down
+
+bindsym $mod+Down $e "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+bindsym $mod+Left $e "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+bindsym $mod+Right $e "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+
+bindsym Print $e "scrot ~/Pictures/%Y-%m-%d-%T-screenshot.png"
+
+bindsym $mod+shift+i $e optimus-manager --switch intel --no-confirm
+bindsym $mod+shift+n $e optimus-manager --switch nvidia --no-confirm
+
+bindsym $mod+space exec rofi -modi drun -show drun  
+bindsym $mod+Tab exec rofi -show window
+bindsym $mod+shift+space exec fsearch
+
+bindsym $mod+c $e leafpad ".config/i3/config"
+
+# App bindings
+bindsym $mod+Mod1+c $e code -n
+bindsym $mod+Mod1+s $e code -r /home/joris/Scripts/
+bindsym $mod+Mod1+d $e code -r /home/joris/Dotfiles/
+bindsym $mod+Mod1+a $e code -r /home/joris/
+
+bindsym $mod+Up $e spotify
+bindsym $mod+Return $e xfce4-terminal
+bindsym $mod+w $e firefox
+bindsym $mod+t $e nemo
+bindsym $mod+y $e freetube-bin
+bindsym $mod+q $e pkill -9 DRAGON\ QUEST\ XI
+
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+
+# Set floating for apps needing it
+for_window [class="Fsearch"] floating enable
+for_window [class="^Steam$" title="Steam - News"] floating enable
+for_window [class="^Steam$" title="^Settings$"] floating enable
+for_window [class="VirtualBox Manager"] floating enable
+for_window [class="VirtualBox Machine"] floating enable
+
+# Autostart:
+$e nm-applet
+$e xfce4-power-manager
+$e touchpad-indicator
+
+$e /usr/bin/dunst
+$e /usr/bin/unclutter -b
+$e picom --config ~/.config/picom/picom.conf
+$e /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+$e xmodmap -e "keycode 66 = BackSpace" 	# caps lock is now backspace
+$e xmodmap -e "clear lock" 		# disable caps lock switch
+
+exec_always --no-startup-id autotiling
+exec --no-startup-id ~/Scripts/bash/wallpaper.sh boot
+
+bindsym $mod+ctrl+1  exec "cat ~/Dotfiles/i3/.config/i3/[00][01]* >~/Dotfiles/i3/.config/i3/config && i3-msg reload"
+
+#
+# Usage: Theme for i3 config file, will be merged into "config" by 
+#	 a script together with the base config (file 00).
+#
+# Theme: Nord
+#
+# Dotfile by Joris van Dijk | gitlab.com/jorisvandijk 
+#
+#          Published under GPL-3.0-or-later
+
+bar {
+      i3bar_command i3bar
+      status_command i3blocks -c ~/.config/i3/i3blocks.conf
+      position top
+      mode hide
+      hidden_state hide
+      modifier none
+      tray_padding 0
+      colors {
+      background #2E3440
+      statusline #88C0D0
+      separator #ECEFF4
+
+      # class            border  backgr. text
+      focused_workspace  #2E3440 #2E3440 #A3BE8C
+      active_workspace   #2E3440 #2E3440 #D08770
+      inactive_workspace #2E3440 #2E3440 #4C566A
+      urgent_workspace   #BF616A #2E3440 #BF616A
+      binding_mode       #2E3440 #2E3440 #A3BE8C
+    }
+}
