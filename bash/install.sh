@@ -29,16 +29,20 @@ while true; do
                 sudo pacman -Syyu --noconfirm 
                 echo
                 echo -e "${C}Installing the base packages...${NC}"
-                # Base packages
-                sudo pacman -S --noconfirm git stow openssh rofi exa dunst feh xfce4-terminal
-                #echo -e " "
-                #echo -e "${C}Installing packages for styling...${NC}"
-                # Styling packages
-                #sudo pacman -S --noconfirm papirus-icon-theme nordic-theme-git awesome-terminal-fonts ttf-jetbrains-mono
-                #echo " "
-                #echo -e "${C}Installing AUR packages...${NC}"
-                # AUR packages
-                #yay -S --noconfirm i3exit papirus-folders-nordic autotiling
+                sudo pacman -S --noconfirm git stow openssh rofi exa dunst feh xfce4-terminal xfce4-power-manager awesome-terminal-fonts ttf-jetbrains-mono scrot unclutter picom
+                echo
+                echo -e "${C}Installing extra packages...${NC}"
+                sudo pacman -S thunar code steam leafpad firefox
+                echo
+                echo -e "${C}Installing yay...${NC}"
+                pacman -S --needed git base-devel
+                git clone https://aur.archlinux.org/yay.git
+                cd yay
+                makepkg -si
+                rm -rf ~/yay
+                echo 
+                echo -e "${C}Installing AUR packages...${NC}"
+                yay -S autotiling optimus-manager spotify freetube-bin
                 echo ; break;;
         [Nn]* ) exit;;
         * ) echo 
@@ -63,29 +67,41 @@ while true; do
             echo
     esac
 done
-echo -e "${C}Cool. Let's now grab our repositories...${NC}"
+echo -e "${C}Cool. Let's now grab our essential repositories...${NC}"
 echo
 echo -e "${C}Grabbing Scripts...${NC}"
 git clone https://gitlab.com/jorisvandijk/scripts.git $HOME/Scripts
 echo
-#echo -e "${C}Grabbing Wallpapers...${NC}"
-#git clone https://gitlab.com/jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
-#echo
+
 echo -e "${C}Grabbing Dotfiles...${NC}"
 git clone https://gitlab.com/jorisvandijk/dotfiles.git $HOME/Dotfiles
 echo
-#echo -e "${C}Grabbing Notes...${NC}"
-#git clone https://gitlab.com/jorisvandijk/notes.git $HOME/Documents/Notes
-#echo
-#echo -e "${C}Grabbing FreeTube...${NC}"
-#git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
-#echo
-#echo -e "${C}Grabbing Firefox settings...${NC}"
-#git clone https://gitlab.com/jorisvandijk/firefox.git $HOME/.mozilla/firefox/
-#echo
-#echo -e "${C}Grabbing FreeTube settings...${NC}"
-#git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube/
-#echo
+while true; do
+    echo -e "${C}Moar repos!${NC}"
+    read -p $'\e[35mWould you like to grab non essential repos as well? (yes/no) \e[0m: ' yn
+    case $yn in
+        [Yy]* ) 
+        #echo -e "${C}Grabbing Wallpapers...${NC}"
+        #git clone https://gitlab.com/jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
+        echo -e "${C}Grabbing Notes...${NC}"
+        git clone https://gitlab.com/jorisvandijk/notes.git $HOME/Documents/Notes
+        echo
+        echo -e "${C}Grabbing FreeTube...${NC}"
+        git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
+        echo
+        echo -e "${C}Grabbing Firefox settings...${NC}"
+        git clone https://gitlab.com/jorisvandijk/firefox.git $HOME/.mozilla/firefox/
+        echo
+        echo -e "${C}Grabbing FreeTube settings...${NC}"
+        git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube/
+        echo
+        echo; break;;
+        [Nn]* ) exit;;
+        * ) echo 
+            echo -e "${C}Yes or no, please...${NC} "
+            echo
+    esac
+done
 echo -e "${C}Next up, some Stow magic!${NC}"
 echo
 cd $HOME/Dotfiles/ || return
