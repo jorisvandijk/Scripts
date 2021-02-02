@@ -29,7 +29,9 @@ while true; do
                 sudo pacman -Syyu --noconfirm 
                 echo
                 echo -e "${C}Installing the base packages...${NC}"
-                sudo pacman -S --noconfirm git stow openssh rofi exa dunst feh xfce4-terminal xfce4-power-manager awesome-terminal-fonts ttf-jetbrains-mono scrot unclutter picom
+                sudo pacman -S --noconfirm git stow openssh rofi exa dunst feh/
+                xfce4-terminal xfce4-power-manager awesome-terminal-fonts/
+                ttf-jetbrains-mono scrot unclutter picom python python-pip 
                 echo
                 echo -e "${C}Installing extra packages...${NC}"
                 sudo pacman -S thunar code steam leafpad firefox
@@ -41,7 +43,7 @@ while true; do
                 rm -rf ~/yay
                 echo 
                 echo -e "${C}Installing AUR packages...${NC}"
-                yay -S autotiling optimus-manager spotify 
+                yay -S autotiling optimus-manager spotify freetube-bin
                 echo ; break;;
         [Nn]* ) exit;;
         * ) echo 
@@ -86,7 +88,6 @@ while true; do
         git clone https://gitlab.com/jorisvandijk/notes.git $HOME/Documents/Notes
         echo
         echo -e "${C}Grabbing FreeTube...${NC}"
-        sudo -S python python-pip freetube-bin
         git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
         echo
         echo -e "${C}Grabbing Firefox settings...${NC}"
