@@ -35,7 +35,6 @@ while true; do
                 sudo pacman -S thunar code steam leafpad firefox
                 echo
                 echo -e "${C}Installing yay...${NC}"
-                pacman -S --needed git base-devel
                 git clone https://aur.archlinux.org/yay.git
                 cd yay
                 makepkg -si
