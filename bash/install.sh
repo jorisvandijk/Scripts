@@ -30,15 +30,15 @@ while true; do
                 echo
                 echo -e "${C}Installing the base packages...${NC}"
                 # Base packages
-                sudo pacman -S --noconfirm git stow yay i3-gaps i3block rofi exa leafpad dunst feh xfce4-terminal
-                echo -e " "
-                echo -e "${C}Installing packages for styling...${NC}"
+                sudo pacman -S --noconfirm git stow rofi exa dunst feh xfce4-terminal
+                #echo -e " "
+                #echo -e "${C}Installing packages for styling...${NC}"
                 # Styling packages
-                sudo pacman -S --noconfirm papirus-icon-theme nordic-theme-git awesome-terminal-fonts ttf-jetbrains-mono
-                echo " "
-                echo -e "${C}Installing AUR packages...${NC}"
+                #sudo pacman -S --noconfirm papirus-icon-theme nordic-theme-git awesome-terminal-fonts ttf-jetbrains-mono
+                #echo " "
+                #echo -e "${C}Installing AUR packages...${NC}"
                 # AUR packages
-                yay -S --noconfirm i3exit papirus-folders-nordic autotiling
+                #yay -S --noconfirm i3exit papirus-folders-nordic autotiling
                 echo ; break;;
         [Nn]* ) exit;;
         * ) echo 
@@ -68,24 +68,24 @@ echo
 echo -e "${C}Grabbing Scripts...${NC}"
 git clone https://gitlab.com/jorisvandijk/scripts.git $HOME/Scripts
 echo
-echo -e "${C}Grabbing Wallpapers...${NC}"
-git clone https://gitlab.com/jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
-echo
+#echo -e "${C}Grabbing Wallpapers...${NC}"
+#git clone https://gitlab.com/jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
+#echo
 echo -e "${C}Grabbing Dotfiles...${NC}"
 git clone https://gitlab.com/jorisvandijk/dotfiles.git $HOME/Dotfiles
 echo
-echo -e "${C}Grabbing Notes...${NC}"
-git clone https://gitlab.com/jorisvandijk/notes.git $HOME/Documents/Notes
-echo
-echo -e "${C}Grabbing FreeTube...${NC}"
-git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
-echo
-echo -e "${C}Grabbing Firefox settings...${NC}"
-git clone https://gitlab.com/jorisvandijk/firefox.git $HOME/.mozilla/firefox/
-echo
-echo -e "${C}Grabbing FreeTube settings...${NC}"
-git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube/
-echo
+#echo -e "${C}Grabbing Notes...${NC}"
+#git clone https://gitlab.com/jorisvandijk/notes.git $HOME/Documents/Notes
+#echo
+#echo -e "${C}Grabbing FreeTube...${NC}"
+#git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
+#echo
+#echo -e "${C}Grabbing Firefox settings...${NC}"
+#git clone https://gitlab.com/jorisvandijk/firefox.git $HOME/.mozilla/firefox/
+#echo
+#echo -e "${C}Grabbing FreeTube settings...${NC}"
+#git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube/
+#echo
 echo -e "${C}Next up, some Stow magic!${NC}"
 echo
 cd $HOME/Dotfiles/ || return
