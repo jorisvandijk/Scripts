@@ -34,7 +34,7 @@ while true; do
                 sudo pacman -S --noconfirm git stow openssh rofi exa dunst feh \
                 xfce4-terminal xfce4-power-manager awesome-terminal-fonts \
                 ttf-jetbrains-mono scrot unclutter picom python python-pip \
-                nano nvidia light polkit-gnome gimp\
+                nano nvidia light polkit-gnome gimp virtualbox\
                 lxappearance elementary-icon-theme gtk-theme-elementary
                 echo
                 echo -e "${C}Installing extra packages...${NC}"
@@ -72,6 +72,9 @@ while true; do
             echo
     esac
 done
+echo
+echo -e "${C}Setting up Virtu${NC}"
+modprobe vboxdrv
 echo
 echo -e "${C}For the Intel/Nvidia Optimus switching to function,${NC}"
 echo -e "${C}We need to 'sudo mv /etc/X11/xorg.conf xorg.conf_',${NC}"
