@@ -8,10 +8,11 @@
 #
 #          Published under GPL-3.0-or-later
 
-C='\033[1;35m' # Color
-NC='\033[0m'   # No Color
 USER='joris'
 GE='' # Add git email address here
+
+C='\033[1;35m' # Color
+NC='\033[0m'   # No Color
 
 cd $HOME || return
 echo
@@ -20,6 +21,8 @@ echo -e "${C}Welcome back! Let's get this puppy rollin'!${NC}"
 echo
 echo -e "${C}>> WARNING: THIS WILL DO HARM TO YOUR SYSTEM <<${NC}"
 echo -e "${C}>>>>>> ONLY USE ON A FRESH ARCH INSTALL! <<<<<<${NC}"
+echo
+echo -e "${C}Don't forget to fill out variables in this script before executing it.${NC}"
 echo
 echo
 while true; do
@@ -31,11 +34,7 @@ while true; do
                 sudo pacman -Syyu --noconfirm 
                 echo
                 echo -e "${C}Installing the base packages...${NC}"
-                sudo pacman -S --noconfirm git stow openssh rofi exa dunst feh \
-                xfce4-terminal xfce4-power-manager awesome-terminal-fonts \
-                ttf-jetbrains-mono scrot unclutter picom python python-pip \
-                nano nvidia light polkit-gnome gimp virtualbox\
-                lxappearance elementary-icon-theme gtk-theme-elementary
+                sudo pacman -S --noconfirm $(cat pkglist.txt|xargs)
                 echo
                 echo -e "${C}Installing extra packages...${NC}"
                 sudo pacman -S thunar code steam leafpad firefox
@@ -47,7 +46,7 @@ while true; do
                 rm -rf ~/yay
                 echo 
                 echo -e "${C}Installing AUR packages...${NC}"
-                yay -S autotiling optimus-manager spotify freetube-bin 
+                yay -S $(cat pkglist_aur.txt|xargs)
                 echo ; break;;
         [Nn]* ) exit;;
         * ) echo 
