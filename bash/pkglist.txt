@@ -1,12 +1,15 @@
 awesome-terminal-fonts
+code
 dunst 
 elementary-icon-theme 
 exa 
 feh
+firefox
 gimp 
 git 
 gparted
 gtk-theme-elementary 
+leafpad
 light 
 lxappearance 
 nano 
@@ -18,7 +21,9 @@ python
 python-pip
 rofi 
 scrot 
+steam
 stow 
+thunar
 ttf-jetbrains-mono 
 unclutter 
 xfce4-power-manager

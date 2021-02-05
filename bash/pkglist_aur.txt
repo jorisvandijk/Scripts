@@ -3,3 +3,5 @@ freetube-bin
 optimus-manager 
 spotify  
 ttf-comfortaa
+qogir-gtk-theme
+qogir-icon-theme
