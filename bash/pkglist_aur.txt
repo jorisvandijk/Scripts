@@ -1,0 +1,5 @@
+autotiling 
+freetube-bin
+optimus-manager 
+spotify  
+ttf-comfortaa
