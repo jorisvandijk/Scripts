@@ -9,6 +9,7 @@ gimp
 git 
 gparted
 gtk-theme-elementary 
+keepassxc
 leafpad
 light 
 lxappearance 
