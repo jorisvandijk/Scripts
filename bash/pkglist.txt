@@ -25,6 +25,7 @@ steam
 stow 
 thunar
 ttf-jetbrains-mono 
+ttf-liberation
 unclutter 
 xfce4-power-manager
 xfce4-terminal
