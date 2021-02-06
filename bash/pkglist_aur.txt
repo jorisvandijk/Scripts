@@ -1,6 +1,6 @@
 autotiling 
 freetube-bin
-mullvad-vpn
+mullvad-vpn-bin
 optimus-manager 
 spotify  
 ttf-andika
