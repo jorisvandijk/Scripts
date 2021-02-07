@@ -72,7 +72,7 @@ while true; do
     esac
 done
 echo
-echo -e "${C}Setting up Virtu${NC}"
+echo -e "${C}Setting up Virtualbox...${NC}"
 modprobe vboxdrv
 echo
 echo -e "${C}For the Intel/Nvidia Optimus switching to function,${NC}"
