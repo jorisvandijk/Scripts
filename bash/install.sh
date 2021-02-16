@@ -129,9 +129,16 @@ while true; do
         cd $HOME || return
         echo
         echo -e "${C}Grabbing Firefox settings...${NC}"
-        git clone https://gitlab.com/jorisvandijk/firefox.git $HOME/.mozilla/firefox/
+        git clone https://gitlab.com/jorisvandijk/firefox.git $HOME/.mozilla/firefox
         cd $HOME/.mozilla/firefox/
         git remote set-url origin git@gitlab.com:jorisvandijk/firefox.git
+        git remote -v
+        cd $HOME || return
+        echo
+        echo -e "${C}Grabbing Kee settings...${NC}"
+        git clone https://gitlab.com/jorisvandijk/kee.git $HOME/Documents/Kee
+        cd $HOME/Documents/Kee
+        git remote set-url origin git@gitlab.com:jorisvandijk/kee.git
         git remote -v
         cd $HOME || return
         echo
