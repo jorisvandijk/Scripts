@@ -2,9 +2,10 @@ autotiling
 freetube-bin
 micro
 optimus-manager 
-spotify  
-ttf-andika
-ttf-comfortaa
 otf-code-new-roman
 qogir-gtk-theme
 qogir-icon-theme
+spotify  
+ttf-andika
+ttf-comfortaa
+tutanota-desktop-bin

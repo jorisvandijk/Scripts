@@ -25,7 +25,6 @@ rofi
 scrot 
 steam
 stow 
-sylpheed
 thunar
 ttf-jetbrains-mono 
 ttf-liberation
