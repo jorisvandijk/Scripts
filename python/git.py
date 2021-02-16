@@ -26,8 +26,11 @@ os.system("cd ~/Dotfiles/ && git status")
 print(f"{bcolors.green}\nNotes:{bcolors.ENDC}")
 os.system("cd ~/Documents/Notes/ && git status")
 
+print(f"{bcolors.green}\nKee:{bcolors.ENDC}")
+os.system("cd ~/Documents/kee/ && git status")
+
 print("\nWhich repository would you like to update?\n")
-repo = input("1. Scripts\n2. FreeTube\n3. Wallpapers\n4. Dotfiles\n5. Notes\n:")
+repo = input("1. Scripts\n2. FreeTube\n3. Wallpapers\n4. Dotfiles\n5. Notes\n6. Kee\n:")
 
 if repo == "1":
     folder = "/home/joris/Scripts/"
@@ -43,6 +46,9 @@ elif repo == "4":
 
 elif repo == "5":
     folder = "/home/joris/Documents/Notes/"
+
+elif repo == "6":
+    folder = "/home/joris/Documents/kee/"
 
 else:
     print("That is not a repository.")
