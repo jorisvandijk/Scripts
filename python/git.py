@@ -51,7 +51,7 @@ elif repo == "6":
     folder = "/home/joris/Documents/Kee/"
 
 else:
-    print("That is not a repository.")
+    print("That is not a repository!")
     quit()
     
 os.chdir(f"{folder}")
