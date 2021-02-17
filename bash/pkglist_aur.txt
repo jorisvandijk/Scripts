@@ -8,4 +8,3 @@ qogir-icon-theme
 spotify  
 ttf-andika
 ttf-comfortaa
-tutanota-desktop-bin
