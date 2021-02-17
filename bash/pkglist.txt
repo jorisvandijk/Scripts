@@ -12,6 +12,7 @@ gparted
 gtk-theme-elementary 
 keepassxc
 leafpad
+lib32-nvidia-utils
 light 
 lxappearance 
 nano 
