@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Usage: Simplyfy FvdM update MyPolo.nl
+# Usage: Update Kee
 #
 # Script by Joris van Dijk | gitlab.com/jorisvandijk 
 #
