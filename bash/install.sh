@@ -166,3 +166,5 @@ echo
 cat ~/.ssh/id_ed25519.pub 
 echo	
 echo -e "${C}Done!${NC}"
+echo
+echo -e "${C}For Optimus to function correctly, please reboot!${NC}"
