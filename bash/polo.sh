@@ -16,7 +16,7 @@ read -p "What's the link to the MyPolo page?:" link
 wget -k -O index.html $link
 
 # Get image links from index
-cat index.html | grep https://www.mypolo.nl/xenforo/data/attachments/ | grep -Po 'src="\K.*?(?=")' | sed 's/\?.*//' > polo.txt ; 
+cat index.html | grep /attachments/ | grep -Po 'src="\K.*?(?=")' | sed 's/\?.*//' > polo.txt ; 
 
 # Count images and add placeholder
 lines=$(< polo.txt wc -l )
