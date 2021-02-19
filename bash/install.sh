@@ -19,9 +19,6 @@ echo
 echo -e "${C}>> WARNING: THIS WILL DO HARM TO YOUR SYSTEM <<${NC}"
 echo -e "${C}>>>>>> ONLY USE ON A FRESH ARCH INSTALL! <<<<<<${NC}"
 echo
-echo -e "${C}Don't forget to fill out variables in this script before executing it.${NC}"
-echo
-echo
 while true; do
     read -p $'\e[35mGet going? (yes/no) \e[0m: ' yn
     case $yn in
