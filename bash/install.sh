@@ -148,7 +148,7 @@ cd $HOME/Dotfiles/ || return
 for d in *; do stow -v -t ~ "$d" ;done
 echo -e "${C}Setting up Git${NC}"
 echo
-read -p $'\e[35mWhat is your git email username? (Capitalize!)\e[0m: ' GU
+read -p $'\e[35mWhat is your git global username? (e.g. Joris)\e[0m: ' GU
 git config --global user.name ${GU}
 read -p $'\e[35mWhat is your git email address? \e[0m: ' GE
 git config --global user.email ${GE}
