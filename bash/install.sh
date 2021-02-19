@@ -62,9 +62,9 @@ while true; do
             echo
     esac
 done
-echo
-echo -e "${C}Setting up Virtualbox...${NC}"
-modprobe vboxdrv
+#echo
+#echo -e "${C}Setting up Virtualbox...${NC}"
+#modprobe vboxdrv
 echo
 echo -e "${C}For the Intel/Nvidia Optimus switching to function,${NC}"
 echo -e "${C}We need to 'sudo mv /etc/X11/xorg.conf xorg.conf_',${NC}"
