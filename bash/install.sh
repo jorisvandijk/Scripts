@@ -30,9 +30,6 @@ while true; do
                 echo -e "${C}Installing the base packages...${NC}"
                 sudo pacman -S --noconfirm $(cat pkglist.txt|xargs)
                 echo
-                echo -e "${C}Installing extra packages...${NC}"
-                sudo pacman -S thunar code steam leafpad firefox
-                echo
                 echo -e "${C}Installing yay...${NC}"
                 git clone https://aur.archlinux.org/yay.git
                 cd yay
