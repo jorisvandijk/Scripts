@@ -8,9 +8,6 @@
 #
 #          Published under GPL-3.0-or-later
 
-USER='joris'
-GE='' # Add git email address here
-
 C='\033[1;35m' # Color
 NC='\033[0m'   # No Color
 
@@ -81,9 +78,11 @@ echo -e "${C}if present.${NC}"
 echo
 sudo mv /etc/X11/xorg.conf xorg.conf_ 
 echo 
+read -p $'\e[35mWhat is your username? \e[0m: ' USER
+echo
 echo -e "${C}We need to add $USER to the video group for${NC}"
 echo -e "${C}backlight setting to work properly.${NC}"
-# Possibly also sudo chmod +s /usr/bin/light
+sudo chmod +s /usr/bin/light
 echo
 sudo gpasswd -a $USER video
 echo -e "${C}Cool. Let's now grab our essential repositories...${NC}"
@@ -154,7 +153,10 @@ echo
 cd $HOME/Dotfiles/ || return
 for d in *; do stow -v -t ~ "$d" ;done
 echo -e "${C}Setting up Git${NC}"
-git config --global user.name "Joris"
+echo
+read -p $'\e[35mWhat is your git email username? (Capitalize!)\e[0m: ' GU
+git config --global user.name ${GU}
+read -p $'\e[35mWhat is your git email address? \e[0m: ' GE
 git config --global user.email ${GE}
 echo
 echo -e "${C}Creating SSH keys...${NC}"
