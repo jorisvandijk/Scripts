@@ -155,9 +155,11 @@ git config --global user.email ${GE}
 echo
 echo -e "${C}Creating SSH keys...${NC}"
 echo
+read -p $'\e[35mWhat name would you like this system to get on GitLab? (e.g. JorisPC)\e[0m: ' GN
+echo
 echo -e "${C}DO NOT ENTER A PASSPHRASE!${NC}"
 echo
-ssh-keygen -t ed25519 -C "JorisPC"
+ssh-keygen -t ed25519 -C "$GN"
 echo 
 echo -e "${C}Now copy the following key and head to https://gitlab.com/-/profile/keys and fill out the form.${NC}"
 echo
