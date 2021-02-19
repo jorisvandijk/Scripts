@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Usage: Update Kee
+# Usage: Update Kee from an i3. See i3/config
 #
 # Script by Joris van Dijk | gitlab.com/jorisvandijk 
 #
@@ -11,6 +11,3 @@ git pull
 keepassxc &
 disown &&
 exit
-
-# Closing the terminal does not work yet!
-# Have to search for a way to do this...
