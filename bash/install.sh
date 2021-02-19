@@ -27,7 +27,7 @@ while true; do
                 echo
                 sudo pacman -Syyu --noconfirm 
                 echo
-                echo -e "${C}Installing the base packages...${NC}"
+                echo -e "${C}Installing the pacman packages...${NC}"
                 sudo pacman -S --noconfirm $(cat pkglist.txt|xargs)
                 echo
                 echo -e "${C}Installing yay...${NC}"
