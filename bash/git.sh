@@ -11,86 +11,57 @@ C='\033[1;35m' # Color
 NC='\033[0m'   # No Color
 
 # List all git status 
+echo -e "\n${C}Dotfiles${NC}"
+cd ~/Dotfiles/ && git status
+
 echo -e "\n${C}Scripts${NC}"
 cd ~/Scripts/ && git status
 
-echo -e "\n${C}FreeTube${NC}"
-cd ~/.config/FreeTube/ && git status
+echo -e "\n${C}Kee${NC}"
+cd ~/Documents/Kee/ && git status
 
 echo -e "\n${C}Wallpapers${NC}"
 cd ~/Pictures/wallpapers/ && git status
 
-echo -e "\n${C}Dotfiles${NC}"
-cd ~/Dotfiles/ && git status
-
 echo -e "\n${C}Notes${NC}"
 cd ~/Documents/Notes/ && git status
 
-echo -e "\n/home/joris/Documents/Kee/${C}Kee${NC}"
-cd ~/Documents/Kee/ && git status
+echo -e "\n${C}FreeTube${NC}"
+cd ~/.config/FreeTube/ && git status
+
+echo
+read -n 1 -s -r -p "Press any key to continue, or CTRL+C to cancel."
 
 # Create a menu with options
+HEIGHT=15
+WIDTH=40
+CHOICE_HEIGHT=4
+BACKTITLE="Gitlab.com/jorisvndijk"
+TITLE="Push changes"
+MENU="Which repository would you like to edit? :"
 
-# THE FOLLOWING DOES NOT WORK YET AND I AM TOO DRUNK TO FIX IT NOW
-PS3='Which  repository would you like to update? : '
-options=("1. Scripts" "2. Freetube" "3. Wallpapers" "4. Dotfiles" "5. Notes" "6. Kee" "quit")
-select option in "${options[@]}"; do
-    case $option in
-        "1")
-            FOLDER="$HOME/Scripts/"
+OPTIONS=(1 "Dotfiles"
+         2 "Scripts"
+         3 "Kee"
+         4 "Notes"
+         5 "Wallpapers"
+         6 "FreeTube")
+
+CHOICE=$(dialog --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+case $CHOICE in
+        1)
+            echo "You chose Option 1"
             ;;
-        "2")
-            FOLDER="$HOME/.config/FreeTube/"
+        2)
+            echo "You chose Option 2"
             ;;
-        "3")
-            FOLDER="$HOME/Pictures/wallpapers/"
+        3)
+            echo "You chose Option 3"
             ;;
-        "4")
-            FOLDER="$HOME/Dotfiles"
-            ;;
-        "5")
-            FOLDER="$HOME/Documents/Notes/"
-            ;;
-        "6")
-            FOLDER="$HOME/Documents/Kee/"
-	    break
-            ;;
-	"Quit")
-	    echo "User requested exit"
-	    exit
-	    ;;
-        *) echo "invalid option $REPLY";;
-    esac
-done
-cd $folder
-git status
-PS3='What would you like to commit? : '
-options=("All files" "Modified files" "A Specific file")
-select option in "${options[@]}"; do
-    case $option in
-        "1")
-            FOLDER="$HOME/Scripts/"
-            ;;
-        "2")
-            FOLDER="$HOME/.config/FreeTube/"
-            ;;
-        "3")
-            FOLDER="$HOME/Pictures/wallpapers/"
-            ;;
-        "4")
-            FOLDER="$HOME/Dotfiles"
-            ;;
-        "5")
-            FOLDER="$HOME/Documents/Notes/"
-            ;;
-        "6")
-            FOLDER="$HOME/Documents/Kee/"
-	    break
-            ;;
-	"Quit")
-	    echo "User requested exit"
-	    exit
-	    ;;
-        *) echo "invalid option $REPLY";;
-    esac
-done
+esac
