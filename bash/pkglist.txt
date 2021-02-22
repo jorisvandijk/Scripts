@@ -15,7 +15,8 @@ leafpad
 lib32-nvidia-utils
 light 
 lxappearance 
-nano 
+nano
+neovim 
 nvidia 
 openssh 
 picom 
