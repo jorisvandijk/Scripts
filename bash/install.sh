@@ -141,14 +141,15 @@ while true; do
             echo
     esac
 done
-echo -e "${C}Setting up Vundle for Vim...${NC}"
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
-echo
 echo -e "${C}Next up, some Stow magic!${NC}"
 echo
 cd $HOME/Dotfiles/ || return
 for d in *; do stow -v -t ~ "$d" ;done
+echo
+echo -e "${C}Setting up Vundle for Vim...${NC}"
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
+echo
 echo -e "${C}Setting up Git${NC}"
 echo
 read -p $'\e[35mWhat is your git global username? (e.g. Joris)\e[0m: ' GU
