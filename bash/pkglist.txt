@@ -3,6 +3,7 @@ awesome-terminal-fonts
 code
 dunst 
 elementary-icon-theme 
+epdfview
 exa 
 feh
 firefox
