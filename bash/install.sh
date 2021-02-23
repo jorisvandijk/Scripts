@@ -88,7 +88,6 @@ git remote set-url origin git@gitlab.com:jorisvandijk/scripts.git
 git remote -v
 cd $HOME || return
 echo
-
 echo -e "${C}Grabbing Dotfiles...${NC}"
 git clone https://gitlab.com/jorisvandijk/dotfiles.git $HOME/Dotfiles
 cd $HOME/Dotfiles
@@ -142,6 +141,10 @@ while true; do
             echo
     esac
 done
+echo -e "${C}Setting up Vundle for Vim...${NC}"
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
+echo
 echo -e "${C}Next up, some Stow magic!${NC}"
 echo
 cd $HOME/Dotfiles/ || return
