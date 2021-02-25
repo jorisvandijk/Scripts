@@ -1,4 +1,5 @@
 autotiling 
+chrysalis-bin
 freetube-bin
 micro
 optimus-manager 
