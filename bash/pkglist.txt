@@ -24,6 +24,7 @@ picom
 polkit-gnome 
 python 
 python-pip
+qutebrowser
 rofi 
 scrot 
 steam
