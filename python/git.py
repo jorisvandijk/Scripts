@@ -14,20 +14,20 @@ class bcolors:
 print(f"{bcolors.green}\nScripts:{bcolors.ENDC}")
 os.system("cd ~/Scripts/ && git status")
 
+print(f"{bcolors.green}\nDotfiles:{bcolors.ENDC}")
+os.system("cd ~/Dotfiles/ && git status")
+
+print(f"{bcolors.green}\nKee:{bcolors.ENDC}")
+os.system("cd ~/Documents/Kee/ && git status")
+
 print(f"{bcolors.green}\nFreeTube:{bcolors.ENDC}")
 os.system("cd ~/.config/FreeTube/ && git status")
 
 print(f"{bcolors.green}\nWallpapers:{bcolors.ENDC}")
 os.system("cd ~/Pictures/wallpapers/ && git status")
 
-print(f"{bcolors.green}\nDotfiles:{bcolors.ENDC}")
-os.system("cd ~/Dotfiles/ && git status")
-
 print(f"{bcolors.green}\nNotes:{bcolors.ENDC}")
 os.system("cd ~/Documents/Notes/ && git status")
-
-print(f"{bcolors.green}\nKee:{bcolors.ENDC}")
-os.system("cd ~/Documents/Kee/ && git status")
 
 print("\nWhich repository would you like to update?\n")
 repo = input("1. Scripts\n2. FreeTube\n3. Wallpapers\n4. Dotfiles\n5. Notes\n6. Kee\n:")
@@ -36,19 +36,20 @@ if repo == "1":
     folder = "/home/joris/Scripts/"
 
 elif repo == "2":
-    folder = "/home/joris/.config/FreeTube/"
-
-elif repo == "3":
-    folder = "/home/joris/Pictures/wallpapers/"
-
-elif repo == "4":
     folder = "/home/joris/Dotfiles"
 
+elif repo == "3":
+    folder = "/home/joris/Documents/Kee/"
+
+elif repo == "4":
+    folder = "/home/joris/.config/FreeTube/"
+
 elif repo == "5":
-    folder = "/home/joris/Documents/Notes/"
+    folder = "/home/joris/Pictures/wallpapers/"
 
 elif repo == "6":
-    folder = "/home/joris/Documents/Kee/"
+    folder = "/home/joris/Documents/Notes/"
+
 
 else:
     print("That is not a repository!")
