@@ -53,7 +53,7 @@ notify-send -u critical -t 10000 "$(
     echo "Connected to:";
     iwgetid -r
     echo
-    echo "Number of updates:"
+    echo "Number of package updates:"
     checkupdates | wc -l
     echo
     if [[ $repo ]]; then
