@@ -20,6 +20,7 @@ nano
 neovim 
 nvidia 
 openssh 
+pacman-contrib
 picom 
 polkit-gnome 
 python 
