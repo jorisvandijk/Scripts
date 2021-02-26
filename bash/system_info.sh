@@ -20,4 +20,7 @@ notify-send -u critical -t 10000 "$(
     echo;
     echo "Connected to:";
     iwgetid -r
+    echo
+    echo "Number of updates:"
+    checkupdates | wc -l
     )" 
