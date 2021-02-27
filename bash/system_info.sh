@@ -52,8 +52,13 @@ notify-send -u critical -t 10000 "$(
     echo "Number of installed packages"
     pacman -Qq | wc -l
     echo
+    pkg=$(checkupdates | wc -l)
+    if [[ $(echo $pkg == 0) ]]; then
+    echo "System is up to date!"
+    else 
     echo "Number of package updates"
-    checkupdates | wc -l
+    echo $pkg
+    fi
     echo
     if [[ $repo ]]; then
     echo -e "Repository changes in\n$repo"
@@ -69,4 +74,4 @@ notify-send -u critical -t 10000 "$(
     echo
     echo "Connected to";
     iwgetid -r
-)" 
+)"
