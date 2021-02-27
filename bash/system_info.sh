@@ -44,26 +44,29 @@ notify-send -u critical -t 10000 "$(
     date +"%R";
     echo
     echo "Current date"
-    date +"%A %d %B %Y";
-    echo;
-    echo "Battery"   
+    date +"%A %d %B %Y"
+    echo
+    echo "Battery"
     acpi | awk '{print $4, $5, $6, $7}'
-    echo;
+    echo
+    echo "Number of installed packages"
+    pacman -Qq | wc -l
+    echo
     echo "Number of package updates"
     checkupdates | wc -l
     echo
     if [[ $repo ]]; then
-    echo -e "There are updates in\n$repo"
+    echo -e "Repository changes in\n$repo"
     else 
     echo "All repositories are up to date!"
     fi
     echo
-    echo "Free memory"; 
-    free -h | grep Mem | awk '{print $4}';
-    echo;
+    echo "Free memory";
+    free -h | grep Mem | awk '{print $4}'
+    echo
     echo "Free space";
-    df -h | grep /dev/nvme0n1p2 | awk '{print $4}';
-    echo;
+    df -h | grep /dev/nvme0n1p2 | awk '{print $4}'
+    echo
     echo "Connected to";
     iwgetid -r
 )" 
