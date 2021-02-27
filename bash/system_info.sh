@@ -49,15 +49,6 @@ notify-send -u critical -t 10000 "$(
     echo "Battery"   
     acpi | awk '{print $4, $5, $6, $7}'
     echo;
-    echo "Free memory"; 
-    free -h | grep Mem | awk '{print $4}';
-    echo;
-    echo "Free space";
-    df -h | grep /dev/nvme0n1p2 | awk '{print $4}';
-    echo;
-    echo "Connected to";
-    iwgetid -r
-    echo
     echo "Number of package updates"
     checkupdates | wc -l
     echo
@@ -66,4 +57,13 @@ notify-send -u critical -t 10000 "$(
     else 
     echo "All repositories are up to date!"
     fi
+    echo
+    echo "Free memory"; 
+    free -h | grep Mem | awk '{print $4}';
+    echo;
+    echo "Free space";
+    df -h | grep /dev/nvme0n1p2 | awk '{print $4}';
+    echo;
+    echo "Connected to";
+    iwgetid -r
 )" 
