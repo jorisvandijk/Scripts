@@ -53,7 +53,7 @@ notify-send -u critical -t 10000 "$(
     pacman -Qq | wc -l
     echo
     pkg=$(checkupdates | wc -l)
-    if [[ $(echo $pkg == 0) ]]; then
+    if [[ $(echo $pkg == "0") ]]; then
     echo "System is up to date!"
     else 
     echo "Number of package updates"
