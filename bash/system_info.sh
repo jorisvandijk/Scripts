@@ -52,12 +52,17 @@ notify-send -u critical -t 10000 "$(
     echo "Number of installed packages"
     pacman -Qq | wc -l
     echo
-    pkg=$(checkupdates | wc -l)
-    if [[ $(echo $pkg == "0") ]]; then
-    echo "System is up to date!"
-    else 
+    CULIST=$(checkupdates)
+    if [[ $CULIST = "" ]]; then
+    echo "All packages are up to date!"
+    else
+    IFS=$'\n'
+    for i in $CULIST
+    do
+    pacnum=$((pacnum+1))
+    done
     echo "Number of package updates"
-    echo $pkg
+    echo "$pacnum"
     fi
     echo
     if [[ $repo ]]; then
