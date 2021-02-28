@@ -79,4 +79,15 @@ notify-send -u critical -t 10000 "$(
     echo
     echo "Connected to";
     iwgetid -r
+    echo
+
+
+    SPOTIFY=$(python $HOME/Scripts/python/spotify.py)
+    if [[ $SPOTIFY = "" ]]; then
+    echo "No songs currently playing"
+    else
+    echo "Currently playing"
+    python $HOME/Scripts/python/spotify.py
+    fi
+    
 )"
