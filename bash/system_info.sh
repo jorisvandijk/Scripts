@@ -39,7 +39,7 @@ fi
 
 repo=$one$two$three$four$five$six
 
-notify-send -u critical -t 10000 "$(
+notify-send -u critical -t 15000 "$(
     echo "Current time"
     date +"%R";
     echo
