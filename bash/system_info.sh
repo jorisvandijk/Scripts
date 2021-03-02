@@ -58,6 +58,6 @@ notify-send -u critical -t 15000 "$(
     if [[ $spotify = "" ]]; then
         echo "No song is currently playing"
     else
-        echo $(echo "Listening to "; echo "$spotify")
+        echo $(echo "Listening to"; echo "$spotify")
     fi 
 )"
