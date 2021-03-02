@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Usage: Test on how to make a custom Rofi menu
+# Usage: Spotify Rofi menu
 #
 # Dotfile by Joris van Dijk | gitlab.com/jorisvandijk 
 #
@@ -35,4 +35,3 @@ case $chosen in
         dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
         ;;
 esac
-
