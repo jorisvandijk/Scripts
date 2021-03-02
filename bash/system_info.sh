@@ -22,10 +22,10 @@ if [[ $(git status --porcelain) ]]; then
     three="Kee "
 fi
 
-cd $HOME/.config/FreeTube/
-if [[ $(git status --porcelain) ]]; then
-    four="FreeTube "
-fi
+#cd $HOME/.config/FreeTube/
+#if [[ $(git status --porcelain) ]]; then
+#    four="FreeTube "
+#fi
 
 cd $HOME/Pictures/wallpapers/
 if [[ $(git status --porcelain) ]]; then
@@ -37,7 +37,7 @@ if [[ $(git status --porcelain) ]]; then
     six="Notes "
 fi
 
-repo=$one$two$three$four$five$six
+repo=$one$two$three$five$six
 
 notify-send -u critical -t 15000 "$(
     echo "Current time"
