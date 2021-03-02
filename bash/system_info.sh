@@ -23,9 +23,9 @@ fi
 repo=$one$two$three$five$six
 
 notify-send -u critical -t 15000 "$(
-    echo $(date +"%A %d %B %Y"; echo " - "; date +"%R")
+    echo $(date +"%A %-d %B %Y"; echo " - "; date +"%R")
     echo
-    echo $(echo "Battery is at"; acpi | awk '{print substr($4, 1, length($4)-1)}')
+    echo $(echo "Battery at"; acpi | awk '{print substr($4, 1, length($4)-1)}')
     echo
     list=$(checkupdates)
     if [[ $list = "" ]]; then
@@ -35,17 +35,16 @@ notify-send -u critical -t 15000 "$(
     for i in $list
     do
         pacnum=$((pacnum+1))
-        pacbum=$(echo "There are "; pacman -Qq | wc -l; echo "packages installed with $pacnum")
     done
     if [[ $pacnum -eq 1 ]]; then
-        echo -e "$pacbum update!"
+        echo $(pacman -Qq | wc -l; echo -e "packages installed with $pacnum update!")
     else
-        echo -e "$pacbum updates!"
+        echo $(pacman -Qq | wc -l; echo -e "packages installed with $pacnum updates!")
     fi
     fi
     echo
     if [[ $repo ]]; then
-        echo -e "There are repository changes in $repo"
+        echo -e "Repository changes in $repo"
     else 
         echo "All repositories are up to date!"
     fi
