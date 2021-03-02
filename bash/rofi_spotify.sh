@@ -15,14 +15,14 @@ else
 fi
 
 ### Options ###
-OPT1="Play/Pause"
-OPT2="Next song"
-OPT3="Previous song"
+OPT1="play/pause"
+OPT2="next song"
+OPT3="previous song"
 
 # Variable passed to rofi
 options="$OPT1\n$OPT2\n$OPT3"
 
-chosen="$(echo -e "$options" | rofi -dmenu)"
+chosen="$(echo -e "$options" | rofi -dmenu -p "Spotify")"
 [[ -z $chosen ]] && exit
 case $chosen in
     $OPT1)
