@@ -7,84 +7,58 @@
 #
 #          Published under GPL-3.0-or-later
 
-cd $HOME/Scripts/
-if [[ $(git status --porcelain) ]]; then
-    one="Scripts "
+if [[ $(cd $HOME/Scripts/; git status --porcelain) ]]; then one="Scripts " 
 fi
-
-cd $HOME/Dotfiles/
-if [[ $(git status --porcelain) ]]; then
-    two="Dotfiles "
+if [[ $(cd $HOME/Dotfiles/; git status --porcelain) ]]; then two="Dotfiles " 
 fi
-
-cd $HOME/Documents/Kee/
-if [[ $(git status --porcelain) ]]; then
-    three="Kee "
+if [[ $(cd $HOME/Documents/Kee/; git status --porcelain) ]]; then three="Kee " 
 fi
-
-#cd $HOME/.config/FreeTube/
-#if [[ $(git status --porcelain) ]]; then
-#    four="FreeTube "
+#if [[ $(cd $HOME/.config/FreeTube/; git status --porcelain) ]]; then four="FreeTube " 
 #fi
-
-cd $HOME/Pictures/wallpapers/
-if [[ $(git status --porcelain) ]]; then
-     five="Wallpapers "
+if [[ $(cd $HOME/Pictures/wallpapers/; git status --porcelain) ]]; then five="Wallpapers " 
 fi
-
-cd $HOME/Documents/Notes/
-if [[ $(git status --porcelain) ]]; then
-    six="Notes "
+if [[ $(cd $HOME/Documents/Notes/; git status --porcelain) ]]; then six="Notes " 
 fi
 
 repo=$one$two$three$five$six
 
 notify-send -u critical -t 15000 "$(
-    echo "Current time"
-    date +"%R";
+    echo $(date +"%A %d %B %Y"; echo " - "; date +"%R")
     echo
-    echo "Current date"
-    date +"%A %d %B %Y"
+    echo $(echo "Battery is at"; acpi | awk '{print substr($4, 1, length($4)-1)}')
     echo
-    echo "Battery"
-    acpi | awk '{print $4, $5, $6, $7}'
-    echo
-    echo "Number of installed packages"
-    pacman -Qq | wc -l
-    echo
-    CULIST=$(checkupdates)
-    if [[ $CULIST = "" ]]; then
-    echo "All packages are up to date!"
+    list=$(checkupdates)
+    if [[ $list = "" ]]; then
+        echo $(pacman -Qq | wc -l; echo "packages installed and no updates")
     else
-    IFS=$'\n'
-    for i in $CULIST
+        IFS=$'\n'
+    for i in $list
     do
-    pacnum=$((pacnum+1))
+        pacnum=$((pacnum+1))
+        pacbum=$(echo "There are "; pacman -Qq | wc -l; echo "packages installed with $pacnum")
     done
-    echo "Number of package updates"
-    echo "$pacnum"
+    if [[ $pacnum -eq 1 ]]; then
+        echo -e "$pacbum update!"
+    else
+        echo -e "$pacbum updates!"
+    fi
     fi
     echo
     if [[ $repo ]]; then
-    echo -e "Repository changes in\n$repo"
+        echo -e "There are repository changes in $repo"
     else 
-    echo "All repositories are up to date!"
+        echo "All repositories are up to date!"
     fi
     echo
-    echo "Free memory";
-    free -h | grep Mem | awk '{print $4}'
+    echo $(df -h | grep /dev/nvme0n1p2 | awk '{print $4}'; echo " free space")
+    echo $(free -h | grep Mem | awk '{print $4}'; echo " free memory")
     echo
-    echo "Free space";
-    df -h | grep /dev/nvme0n1p2 | awk '{print $4}'
-    echo
-    echo "Connected to";
-    iwgetid -r
+    echo $(echo "Connected to"; iwgetid -r;)
     echo
     spotify=$(python $HOME/Scripts/python/spotify.py)
     if [[ $spotify = "" ]]; then
-    echo "No song currently playing"
+        echo "No song is currently playing"
     else
-    echo "Currently playing"
-    python $HOME/Scripts/python/spotify.py
+        echo $(echo "Listening to "; echo "$spotify")
     fi 
 )"
