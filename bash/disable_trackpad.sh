@@ -1,0 +1,1 @@
+xinput disable "UNIW0001:00 093A:1336 Touchpad"
