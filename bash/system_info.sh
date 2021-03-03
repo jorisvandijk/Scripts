@@ -25,7 +25,12 @@ repo=$one$two$three$five$six
 notify-send -u critical -t 15000 "$(
     echo $(date +"%A %-d %B %Y"; echo " - "; date +"%R")
     echo
-    echo $(echo "Battery at"; acpi | awk '{print substr($4, 1, length($4)-1)}')
+    bat=$(acpi | awk {'print $3'})
+    if [[ $bat == Charging, ]]; then
+        echo $(echo "Battery at"; acpi | awk '{print substr($4, 1, length($4)-1)}'; echo "and charging")
+    else
+        echo $(echo "Battery at"; acpi | awk '{print substr($4, 1, length($4)-1)}')
+    fi
     echo
     list=$(checkupdates)
     if [[ $list = "" ]]; then
