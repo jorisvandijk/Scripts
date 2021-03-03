@@ -82,7 +82,7 @@ elif files == "3":
 else:
     quit()
 
-push = input("\nAre you sure you wish to push the changes? (y/n)\n:")
+push = input("\nDo you want to push the changes? (y/n)\n:")
     
 if push == "y":
     os.system(f"git push")
