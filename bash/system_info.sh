@@ -49,9 +49,9 @@ notify-send -u critical -t 15000 "$(
     fi
     echo
     if [[ $repo ]]; then
-        echo -e "Repository changes in $repo"
+        echo -e "Git repository changes in $repo"
     else 
-        echo "All Git repositories are up to date!"
+        echo "All Git repositories are up to date"
     fi
     echo
     echo $(df -h | grep /dev/nvme0n1p2 | awk '{print $4}'; echo " free space")
