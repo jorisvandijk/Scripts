@@ -8,12 +8,6 @@
 #
 #          Published under GPL-3.0-or-later
 
-# Go home
-cd $HOME || return
-
-# Get username
-USER=$USER
-
 # Get sudo priveleges
 echo "This script requires root priveleges!"
 if [ $EUID != 0 ]; then
@@ -21,26 +15,11 @@ if [ $EUID != 0 ]; then
     exit $?
 fi
 
-# Create an install directory and grab needed files
-clear;echo
-mkdir $HOME/jorisify_install
-cd $HOME/jorisify_install
-wget https://gitlab.com/jorisvandijk/jorisify/-/blob/master/pkglist.txt
-wget https://gitlab.com/jorisvandijk/jorisify/-/blob/master/pkglist_aur.txt
+# Go home
+cd $HOME || return
 
-# Check for pkglist.txt
-FILE=pkglist.txt
-if [[ -f "$FILE" ]]; then
-    echo "$FILE present."; echo
-    else clear; echo "pkglist.txt is missing. Aborting!"; exit
-fi
-
-# Check for pkglist_aur.txt
-FILE=pkglist_aur.txt
-if [[ -f "$FILE" ]]; then
-    echo "$FILE present."; echo
-    else clear; echo "pkglist_aur.txt is missing. Aborting!"; exit
-fi
+# Get username
+USER=$USER
 
 # Git
 read -p $'What is your git global username? (e.g. Joris): ' GU
