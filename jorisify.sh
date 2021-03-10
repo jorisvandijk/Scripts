@@ -14,6 +14,13 @@ cd $HOME || return
 # Get username
 USER=$USER
 
+# Get sudo priveleges
+echo "This script requires root priveleges!"
+if [ $EUID != 0 ]; then
+    sudo "$0" "$@"
+    exit $?
+fi
+
 # Create an install directory and grab needed files
 clear;echo
 mkdir $HOME/jorisify_install
@@ -39,13 +46,6 @@ fi
 read -p $'What is your git global username? (e.g. Joris): ' GU
 read -p $'What is your git email address?: ' GE
 read -p $'What name would you like this system to get on GitLab? (e.g. JorisPC): ' GN
-
-# Get sudo priveleges
-echo "This script requires root priveleges!"
-if [ $EUID != 0 ]; then
-    sudo "$0" "$@"
-    exit $?
-fi
 
 # Warn user of dangers
 if dialog --stdout --title "Warning!" \
@@ -136,7 +136,7 @@ if dialog --stdout --title "Warning!" \
             cd $HOME || return
 
             # Setting up Vundle for Vim
-            git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+            git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
             vim +PluginInstall +qall
 
             # Git
@@ -153,9 +153,11 @@ if dialog --stdout --title "Warning!" \
 else
     clear
     echo "Installation aborted."
+    rm -rf $HOME/jorisify_install
     exit
 fi
 clear
 echo -e "Installation is done!"
 echo
 echo -e "For Optimus to function correctly, please reboot!"
+rm -rf $HOME/jorisify_install
