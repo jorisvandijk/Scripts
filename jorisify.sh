@@ -1,19 +1,25 @@
 #!/bin/bash
 #
-# Usage: Will create my instance of i3 complete with all
-#        settings and dotfiles as they should be. It's
-#        my post-install script.
+# Usage: Jorisify my fresh Arch install
+#
+# !!! DO NOT RUN THIS SCRIPT, IT'LL DESTROY YOUR SYSTEM!!!
 #
 # Script by Joris van Dijk | gitlab.com/jorisvandijk 
 #
 #          Published under GPL-3.0-or-later
 
+# Go home
+cd $HOME || return
+
+# Get username
+USER=$USER
+
 # Create an install directory and grab needed files
 clear;echo
-mkdir installer
-cd installer
-wget https://gitlab.com/jorisvandijk/scripts/-/blob/master/bash/pkglist.txt
-wget https://gitlab.com/jorisvandijk/scripts/-/blob/master/bash/pkglist_aur.txt
+mkdir $HOME/jorisify_install
+cd $HOME/jorisify_install
+wget https://gitlab.com/jorisvandijk/jorisify/-/blob/master/pkglist.txt
+wget https://gitlab.com/jorisvandijk/jorisify/-/blob/master/pkglist_aur.txt
 
 # Check for pkglist.txt
 FILE=pkglist.txt
@@ -28,10 +34,6 @@ if [[ -f "$FILE" ]]; then
     echo "$FILE present."; echo
     else clear; echo "pkglist_aur.txt is missing. Aborting!"; exit
 fi
-
-# Ask for username
-read -p $'\e[35mWhat is your username? \e[0m: ' USER
-echo
 
 # Git
 read -p $'What is your git global username? (e.g. Joris): ' GU
@@ -58,8 +60,8 @@ if dialog --stdout --title "Warning!" \
             git clone https://aur.archlinux.org/yay.git
             cd yay
             makepkg -si
-            cd ..
             rm -rf yay
+            cd $HOME/jorisify_install
             yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
             
             # Nuking old install files if present
@@ -76,6 +78,8 @@ if dialog --stdout --title "Warning!" \
             # Backlight fix
             sudo chmod +s /usr/bin/light
             sudo gpasswd -a $USER video
+
+            # Grab GitLab repositories
 
             # Scripts
             git clone https://gitlab.com/jorisvandijk/scripts.git $HOME/Scripts
@@ -140,7 +144,7 @@ if dialog --stdout --title "Warning!" \
             git config --global user.email ${GE}
             ssh-keygen -t ed25519 -C "$GN"
             echo 
-            echo -e "${C}Now copy the following key and head to https://gitlab.com/-/profile/keys and fill out the form.${NC}"
+            echo -e "Now copy the following key and head to https://gitlab.com/-/profile/keys and fill out the form."
             echo
             cat ~/.ssh/id_ed25519.pub 
             echo	
