@@ -161,21 +161,21 @@ if dialog --stdout --title "Warning!" \
     vim +PluginInstall +qall
 
     # SSH keygen
-    ssh-keygen -t ed25519 -C "$GN"
+    sudo -u ssh-keygen -t ed25519 -C "$GN"
     echo 
     echo -e "Now copy the following key and head to https://gitlab.com/-/profile/keys and fill out the form."
     echo
-    cat ~/.ssh/id_ed25519.pub 
+    cat $home/.ssh/id_ed25519.pub 
     echo	
 
     break
 else
     clear
     echo "Installation aborted."
-    rm -rf $home/jorisify_install
     exit
 fi
 #clear
 echo -e "Installation is done!"
 echo
 echo -e "For Optimus to function correctly, please reboot!"
+exit
