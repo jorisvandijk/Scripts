@@ -61,6 +61,9 @@ GE=$(whiptail --backtitle "Jorisify" --title "Git email address" --inputbox "Wha
 GN=$(whiptail --backtitle "Jorisify" --title "Git system name" --inputbox "What name would you like this system to get on GitLab? (e.g. JorisPC)" 8 40 \
 3>&1 1>&2 2>&3 3>&- )
 
+sudo -u $user git config --global user.name ${GU}
+sudo -u $user git config --global user.email ${GE}
+
 # SSH keygen
 sudo -u $user ssh-keygen -t ed25519 -C "$GN"
 
@@ -100,8 +103,6 @@ chmod +s /usr/bin/light
 gpasswd -a $user video
 
 # Grab GitLab repositories
-sudo -u $user git config --global user.name ${GU}
-sudo -u $user git config --global user.email ${GE}
 
 # Scripts
 git clone https://gitlab.com/jorisvandijk/scripts.git $home/Scripts
