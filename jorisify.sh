@@ -65,9 +65,9 @@ sudo -u $user git config --global user.name ${GU}
 sudo -u $user git config --global user.email ${GE}
 
 # SSH keygen
-sudo -u $user ssh-keygen -t ed25519 -C "$GN"
+sudo -u $user ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N "" -C "$GN"
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip
 
-cat $HOME/.ssh/id_ed25519.pub | xclip -sel clip
 whiptail --backtitle "Jorisify" --title "SSH key for GitLab" --msgbox "\
 Now we have to add this new system's SSH key to your GitLab account. \
 The key has already been copied to your clipboard!\n\n\
