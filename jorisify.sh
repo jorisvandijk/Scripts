@@ -13,7 +13,7 @@ cd $HOME || return
 
 # Set $USER and $HOME
 USER=$USER
-HOME="/home/$USER"
+HOME=$HOME
 
 # Get  priveleges
 echo "This script requires root priveleges!"
@@ -23,7 +23,7 @@ if [ $EUID != 0 ]; then
 fi
 
 # Check directory
-if [[ pwd == $HOME/jorisify ]]; then
+if [[ $PWD == $HOME/$USER/jorisify ]]; then
     echo "In correct directory."; echo
     else clear; echo "Please run this script from within the Jorisify repository directory. Aborting!"; exit
 fi
@@ -54,6 +54,7 @@ if dialog --stdout --title "Warning!" \
           are you sure you want to continue?" 10 50; then
 
             # Installing packages and yay
+            clear
             echo "Updating system and installing packages"
             pacman -Syyu --noconfirm 
             pacman -S --noconfirm $(cat pkglist.txt|xargs)
