@@ -16,11 +16,11 @@ USER=$USER
 HOME=$HOME
 
 # Get  priveleges
-echo "This script requires root priveleges!"
-if [ $EUID != 0 ]; then
-     "$0" "$@"
-    exit $?
-fi
+#echo "This script requires root priveleges!"
+#if [ $EUID != 0 ]; then
+#     "$0" "$@"
+#    exit $?
+#fi
 
 # Check directory
 if [[ $PWD == $HOME/$USER/jorisify ]]; then
@@ -53,102 +53,111 @@ if dialog --stdout --title "Warning!" \
           --yesno "This script does irreversable damage to your system!\
           are you sure you want to continue?" 10 50; then
 
-            # Installing packages and yay
-            clear
-            echo "Updating system and installing packages"
-            pacman -Syyu --noconfirm 
-            pacman -S --noconfirm $(cat pkglist.txt|xargs)
-            git clone https://aur.archlinux.org/yay.git
-            cd yay
-            makepkg -si
-            rm -rf yay
-            cd $HOME/jorisify_install
-            sudo -u $USER yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
-            
-            # Nuking old install files if present
-            cd $HOME || return
-            rm -rf $HOME/.config
-            rm $HOME/.bashrc 
+    # Check that the script is running as root. If not, then prompt for the sudo
+    # password and re-execute this script with sudo.
+    if [ "$(id -nu)" != "root" ]; then
+    sudo -k
+    pass=$(whiptail --backtitle "$brand Installer" --title "Authentication required" --passwordbox "This script requires administrative privilege. Please authenticate to begin the installation.\n\n[sudo] Password for user $USER:" 12 50 3>&2 2>&1 1>&3-)
+    exec sudo -S -p '' "$0" "$@" <<< "$pass"
+    exit 1
+    fi
+    
+    # Installing packages and yay
+    clear
+    echo "Updating system and installing packages"
+    pacman -Syyu --noconfirm 
+    pacman -S --noconfirm $(cat pkglist.txt|xargs)
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+    rm -rf yay
+    cd $HOME/jorisify_install
+    sudo -u $USER yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
+    
+    # Nuking old install files if present
+    cd $HOME || return
+    rm -rf $HOME/.config
+    rm $HOME/.bashrc 
 
-            # Virtualbox fix
-            modprobe vboxdrv
+    # Virtualbox fix
+    modprobe vboxdrv
 
-            # Optimus switching fix
-            mv /etc/X11/xorg.conf xorg.conf_ 
+    # Optimus switching fix
+    mv /etc/X11/xorg.conf xorg.conf_ 
 
-            # Backlight fix
-            chmod +s /usr/bin/light
-            gpasswd -a $USER video
+    # Backlight fix
+    chmod +s /usr/bin/light
+    gpasswd -a $USER video
 
-            # Grab GitLab repositories
+    # Grab GitLab repositories
 
-            # Scripts
-            git clone https://gitlab.com/jorisvandijk/scripts.git $HOME/Scripts
-            cd $HOME/Scripts
-            git remote set-url origin git@gitlab.com:jorisvandijk/scripts.git
-            git remote -v
-            cd $HOME || return
+    # Scripts
+    git clone https://gitlab.com/jorisvandijk/scripts.git $HOME/Scripts
+    cd $HOME/Scripts
+    git remote set-url origin git@gitlab.com:jorisvandijk/scripts.git
+    git remote -v
+    cd $HOME || return
 
-            # Dotfiles
-            git clone https://gitlab.com/jorisvandijk/dotfiles.git $HOME/Dotfiles
-            cd $HOME/Dotfiles
-            git remote set-url origin git@gitlab.com:jorisvandijk/dotfiles.git
-            git remote -v
-            cd $HOME || return   
+    # Dotfiles
+    git clone https://gitlab.com/jorisvandijk/dotfiles.git $HOME/Dotfiles
+    cd $HOME/Dotfiles
+    git remote set-url origin git@gitlab.com:jorisvandijk/dotfiles.git
+    git remote -v
+    cd $HOME || return   
 
-            # Wallpapers
-            git clone https://gitlab.com/jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
-            cd $HOME/Pictures/wallpapers
-            git remote set-url origin git@gitlab.com:jorisvandijk/wallpapers.git
-            git remote -v
-            cd $HOME || return
-        
-            #Notes
-            git clone https://gitlab.com/jorisvandijk/notes.git $HOME/Documents/Notes
-            cd $HOME/Documents/Notes
-            git remote set-url origin git@gitlab.com:jorisvandijk/notes.git
-            git remote -v
-            cd $HOME || return
-            
-            # FreeTube
-            git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
-            cd $HOME/.config/FreeTube
-            git remote set-url origin git@gitlab.com:jorisvandijk/freetube.git
-            git remote -v
-            cd $HOME || return
-           
-            # Firefox
-            git clone https://gitlab.com/jorisvandijk/firefox.git $HOME/.mozilla/firefox
-            cd $HOME/.mozilla/firefox/
-            git remote set-url origin git@gitlab.com:jorisvandijk/firefox.git
-            git remote -v
-            cd $HOME || return
-            
-            # Kee
-            git clone https://gitlab.com/jorisvandijk/kee.git $HOME/Documents/Kee
-            cd $HOME/Documents/Kee
-            git remote set-url origin git@gitlab.com:jorisvandijk/kee.git
-            git remote -v
-            cd $HOME || return
+    # Wallpapers
+    git clone https://gitlab.com/jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
+    cd $HOME/Pictures/wallpapers
+    git remote set-url origin git@gitlab.com:jorisvandijk/wallpapers.git
+    git remote -v
+    cd $HOME || return
 
-            # Stow magic
-            cd $HOME/Dotfiles/ || return
-            for d in *; do stow -v -t ~ "$d" ;done
-            cd $HOME || return
+    #Notes
+    git clone https://gitlab.com/jorisvandijk/notes.git $HOME/Documents/Notes
+    cd $HOME/Documents/Notes
+    git remote set-url origin git@gitlab.com:jorisvandijk/notes.git
+    git remote -v
+    cd $HOME || return
+    
+    # FreeTube
+    git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
+    cd $HOME/.config/FreeTube
+    git remote set-url origin git@gitlab.com:jorisvandijk/freetube.git
+    git remote -v
+    cd $HOME || return
+    
+    # Firefox
+    git clone https://gitlab.com/jorisvandijk/firefox.git $HOME/.mozilla/firefox
+    cd $HOME/.mozilla/firefox/
+    git remote set-url origin git@gitlab.com:jorisvandijk/firefox.git
+    git remote -v
+    cd $HOME || return
+    
+    # Kee
+    git clone https://gitlab.com/jorisvandijk/kee.git $HOME/Documents/Kee
+    cd $HOME/Documents/Kee
+    git remote set-url origin git@gitlab.com:jorisvandijk/kee.git
+    git remote -v
+    cd $HOME || return
 
-            # Setting up Vundle for Vim
-            git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
-            vim +PluginInstall +qall
+    # Stow magic
+    cd $HOME/Dotfiles/ || return
+    for d in *; do stow -v -t ~ "$d" ;done
+    cd $HOME || return
 
-            # Git
-            git config --global user.name ${GU}
-            git config --global user.email ${GE}
-            ssh-keygen -t ed25519 -C "$GN"
-            echo 
-            echo -e "Now copy the following key and head to https://gitlab.com/-/profile/keys and fill out the form."
-            echo
-            cat ~/.ssh/id_ed25519.pub 
-            echo	
+    # Setting up Vundle for Vim
+    git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+    vim +PluginInstall +qall
+
+    # Git
+    git config --global user.name ${GU}
+    git config --global user.email ${GE}
+    ssh-keygen -t ed25519 -C "$GN"
+    echo 
+    echo -e "Now copy the following key and head to https://gitlab.com/-/profile/keys and fill out the form."
+    echo
+    cat ~/.ssh/id_ed25519.pub 
+    echo	
 
     break
 else
