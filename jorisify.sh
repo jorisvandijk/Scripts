@@ -66,15 +66,15 @@ home="/home/$user"
     #echo "Updating system and installing packages"
     #pacman -Syyu --noconfirm 
     #pacman -S --noconfirm $(cat pkglist.txt|xargs)
-    echo -e "before su $user"
+    
     su - $user
-    echo -e "after su $user"
-    git clone https://aur.archlinux.org/yay.git
+    
+    sudo -u $user git clone https://aur.archlinux.org/yay.git
     cd yay
-    makepkg -si
+    sudo -u $user makepkg -si
     cd ..
     rm -rf yay
-    yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
+    sudo -u $user yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
     
     # Nuking old install files if present
     cd $home || return
@@ -92,8 +92,8 @@ home="/home/$user"
     gpasswd -a $user video
 
     # Grab GitLab repositories
-    git config --global user.name ${GU}
-    git config --global user.email ${GE}
+    sudo -u $user git config --global user.name ${GU}
+    sudo -u $user git config --global user.email ${GE}
     
    ## Scripts
    #git clone https://gitlab.com/jorisvandijk/scripts.git $home/Scripts
@@ -160,6 +160,8 @@ home="/home/$user"
    #echo
    #cat $home/.ssh/id_ed25519.pub 
    #echo
+
+   cd /home || return; chown -R $user &user
 else
     clear
     echo "Installation aborted."
