@@ -8,12 +8,9 @@
 #
 #          Published under GPL-3.0-or-later
 
-# Go home
-cd $HOME || return
-
-# Set $USER and $HOME
-USER=$USER
-HOME=$HOME
+# Set $user and $home
+user=$USER
+home=$HOME
 
 # Get  priveleges
 #echo "This script requires root priveleges!"
@@ -22,8 +19,17 @@ HOME=$HOME
 #    exit $?
 #fi
 
+# Check that the script is running as root. If not, then prompt for the sudo
+# password and re-execute this script with sudo.
+if [ "$(id -nu)" != "root" ]; then
+sudo -k
+pass=$(whiptail --backtitle "Jorisify" --title "Authentication required" --passwordbox "This script requires administrative privilege. Please authenticate to begin the installation.\n\n[sudo] Password for user $user:" 12 50 3>&2 2>&1 1>&3-)
+exec sudo -S -p '' "$0" "$@" <<< "$pass"
+exit 1
+fi
+
 # Check directory
-if [[ $PWD == $HOME/$USER/jorisify ]]; then
+if [[ $PWD == $home/jorisify ]]; then
     echo "In correct directory."; echo
     else clear; echo "Please run this script from within the Jorisify repository directory. Aborting!"; exit
 fi
@@ -43,25 +49,25 @@ if [[ -f "$FILE" ]]; then
 fi
 
 # Git
-read -p $'What is your git global username? (e.g. Joris): ' GU
-read -p $'What is your git email address?: ' GE
-read -p $'What name would you like this system to get on GitLab? (e.g. JorisPC): ' GN
+#read -p $'What is your git global username? (e.g. Joris): ' GU
+#read -p $'What is your git email address?: ' GE
+#read -p $'What name would you like this system to get on GitLab? (e.g. JorisPC): ' GN
 
 # Warn user of dangers
 if dialog --stdout --title "Warning!" \
-          --backtitle "This script is dangerous!" \
+          --backtitle "Jorisify" \
           --yesno "This script does irreversable damage to your system!\
           are you sure you want to continue?" 10 50; then
-
-    # Check that the script is running as root. If not, then prompt for the sudo
-    # password and re-execute this script with sudo.
-    if [ "$(id -nu)" != "root" ]; then
-    sudo -k
-    pass=$(whiptail --backtitle "$brand Installer" --title "Authentication required" --passwordbox "This script requires administrative privilege. Please authenticate to begin the installation.\n\n[sudo] Password for user $USER:" 12 50 3>&2 2>&1 1>&3-)
-    exec sudo -S -p '' "$0" "$@" <<< "$pass"
-    exit 1
-    fi
     
+    GU=$(dialog --backtitle "Jorisify" --title "Git username" --inputbox "What is your git global username? (e.g. Joris)" 8 40 \
+    3>&1 1>&2 2>&3 3>&- )
+    
+    GE=$(dialog --backtitle "Jorisify" --title "Git email address" --inputbox "What is your git email address?" 8 40 \
+    3>&1 1>&2 2>&3 3>&- )
+    
+    GN=$(dialog --backtitle "Jorisify" --title "Git system name" --inputbox "What name would you like this system to get on GitLab? (e.g. JorisPC)" 8 40 \
+    3>&1 1>&2 2>&3 3>&- )
+
     # Installing packages and yay
     clear
     echo "Updating system and installing packages"
@@ -71,13 +77,13 @@ if dialog --stdout --title "Warning!" \
     cd yay
     makepkg -si
     rm -rf yay
-    cd $HOME/jorisify_install
-    sudo -u $USER yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
+    cd $home/jorisify_install
+    sudo -u $user yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
     
     # Nuking old install files if present
-    cd $HOME || return
-    rm -rf $HOME/.config
-    rm $HOME/.bashrc 
+    cd $home || return
+    rm -rf $home/.config
+    rm $home/.bashrc 
 
     # Virtualbox fix
     modprobe vboxdrv
@@ -87,66 +93,66 @@ if dialog --stdout --title "Warning!" \
 
     # Backlight fix
     chmod +s /usr/bin/light
-    gpasswd -a $USER video
+    gpasswd -a $user video
 
     # Grab GitLab repositories
 
     # Scripts
-    git clone https://gitlab.com/jorisvandijk/scripts.git $HOME/Scripts
-    cd $HOME/Scripts
+    git clone https://gitlab.com/jorisvandijk/scripts.git $home/Scripts
+    cd $home/Scripts
     git remote set-url origin git@gitlab.com:jorisvandijk/scripts.git
     git remote -v
-    cd $HOME || return
+    cd $home || return
 
     # Dotfiles
-    git clone https://gitlab.com/jorisvandijk/dotfiles.git $HOME/Dotfiles
-    cd $HOME/Dotfiles
+    git clone https://gitlab.com/jorisvandijk/dotfiles.git $home/Dotfiles
+    cd $home/Dotfiles
     git remote set-url origin git@gitlab.com:jorisvandijk/dotfiles.git
     git remote -v
-    cd $HOME || return   
+    cd $home || return   
 
     # Wallpapers
-    git clone https://gitlab.com/jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
-    cd $HOME/Pictures/wallpapers
+    git clone https://gitlab.com/jorisvandijk/wallpapers.git $home/Pictures/wallpapers
+    cd $home/Pictures/wallpapers
     git remote set-url origin git@gitlab.com:jorisvandijk/wallpapers.git
     git remote -v
-    cd $HOME || return
+    cd $home || return
 
     #Notes
-    git clone https://gitlab.com/jorisvandijk/notes.git $HOME/Documents/Notes
-    cd $HOME/Documents/Notes
+    git clone https://gitlab.com/jorisvandijk/notes.git $home/Documents/Notes
+    cd $home/Documents/Notes
     git remote set-url origin git@gitlab.com:jorisvandijk/notes.git
     git remote -v
-    cd $HOME || return
+    cd $home || return
     
     # FreeTube
-    git clone https://gitlab.com/jorisvandijk/freetube.git $HOME/.config/FreeTube
-    cd $HOME/.config/FreeTube
+    git clone https://gitlab.com/jorisvandijk/freetube.git $home/.config/FreeTube
+    cd $home/.config/FreeTube
     git remote set-url origin git@gitlab.com:jorisvandijk/freetube.git
     git remote -v
-    cd $HOME || return
+    cd $home || return
     
     # Firefox
-    git clone https://gitlab.com/jorisvandijk/firefox.git $HOME/.mozilla/firefox
-    cd $HOME/.mozilla/firefox/
+    git clone https://gitlab.com/jorisvandijk/firefox.git $home/.mozilla/firefox
+    cd $home/.mozilla/firefox/
     git remote set-url origin git@gitlab.com:jorisvandijk/firefox.git
     git remote -v
-    cd $HOME || return
+    cd $home || return
     
     # Kee
-    git clone https://gitlab.com/jorisvandijk/kee.git $HOME/Documents/Kee
-    cd $HOME/Documents/Kee
+    git clone https://gitlab.com/jorisvandijk/kee.git $home/Documents/Kee
+    cd $home/Documents/Kee
     git remote set-url origin git@gitlab.com:jorisvandijk/kee.git
     git remote -v
-    cd $HOME || return
+    cd $home || return
 
     # Stow magic
-    cd $HOME/Dotfiles/ || return
+    cd $home/Dotfiles/ || return
     for d in *; do stow -v -t ~ "$d" ;done
-    cd $HOME || return
+    cd $home || return
 
     # Setting up Vundle for Vim
-    git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+    git clone https://github.com/VundleVim/Vundle.vim.git $home/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
 
     # Git
@@ -163,11 +169,11 @@ if dialog --stdout --title "Warning!" \
 else
     clear
     echo "Installation aborted."
-    rm -rf $HOME/jorisify_install
+    rm -rf $home/jorisify_install
     exit
 fi
 clear
 echo -e "Installation is done!"
 echo
 echo -e "For Optimus to function correctly, please reboot!"
-rm -rf $HOME/jorisify_install
+rm -rf $home/jorisify_install
