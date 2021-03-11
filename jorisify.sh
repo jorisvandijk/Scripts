@@ -12,21 +12,7 @@
 #user=$USER
 #home=$HOME
 
-# Check that the script is running as root. If not, then prompt for the sudo
-# password and re-execute this script with sudo.
-if [ "$(id -nu)" != "root" ]; then
-sudo -k
-pass=$(whiptail --backtitle "Jorisify" --title "Authentication required" --passwordbox "This script requires administrative privilege. Please authenticate to begin the installation.\n\n[sudo] Password for user $user:" 12 50 3>&2 2>&1 1>&3-)
-exec sudo -S -p '' "$0" "$@" <<< "$pass"
-exit 1
-fi
-
-user=$(dialog --backtitle "Jorisify" --title "Username" --inputbox "What is your username? (LOWERCASE!)" 8 40 \
-    3>&1 1>&2 2>&3 3>&- )
-
-home="/home/$user"
-
- Check directory
+# Check directory
 if [[ $PWD == $home/jorisify ]]; then
     echo "In correct directory."; echo
     else clear; echo "Please run this script from within the Jorisify repository directory. Aborting!"; exit
@@ -45,6 +31,20 @@ if [[ -f "$FILE" ]]; then
     echo "$FILE present."; echo
     else clear; echo "pkglist_aur.txt is missing. Aborting!"; exit
 fi
+
+# Check that the script is running as root. If not, then prompt for the sudo
+# password and re-execute this script with sudo.
+if [ "$(id -nu)" != "root" ]; then
+sudo -k
+pass=$(whiptail --backtitle "Jorisify" --title "Authentication required" --passwordbox "This script requires administrative privilege. Please authenticate to begin the installation.\n\n[sudo] Password for user $user:" 12 50 3>&2 2>&1 1>&3-)
+exec sudo -S -p '' "$0" "$@" <<< "$pass"
+exit 1
+fi
+
+user=$(dialog --backtitle "Jorisify" --title "Username" --inputbox "What is your username? (LOWERCASE!)" 8 40 \
+    3>&1 1>&2 2>&3 3>&- )
+
+home="/home/$user"
 
 # Git
 #read -p $'What is your git global username? (e.g. Joris): ' GU
@@ -71,7 +71,7 @@ if dialog --stdout --title "Warning!" \
     echo "Updating system and installing packages"
     pacman -Syyu --noconfirm 
     pacman -S --noconfirm $(cat pkglist.txt|xargs)
-    git clone https://aur.archlinux.org/yay.git
+    sudo -u $user git clone https://aur.archlinux.org/yay.git
     cd yay
     sudo -u $user makepkg -si
     cd ..
@@ -174,4 +174,3 @@ fi
 echo -e "Installation is done!"
 echo
 echo -e "For Optimus to function correctly, please reboot!"
-rm -rf $home/jorisify_install
