@@ -14,11 +14,16 @@
 
 # Check that the script is running as root. If not, then prompt for the sudo
 # password and re-execute this script with sudo.
-if [ "$(id -nu)" != "root" ]; then
-sudo -k
-pass=$(whiptail --backtitle "Jorisify" --title "Authentication required" --passwordbox "This script requires administrative privilege. Please authenticate to begin the installation.\n\n[sudo] Password for user $user:" 12 50 3>&2 2>&1 1>&3-)
-exec sudo -S -p '' "$0" "$@" <<< "$pass"
-exit 1
+#if [ "$(id -nu)" != "root" ]; then
+#sudo -k
+#pass=$(whiptail --backtitle "Jorisify" --title "Authentication required" --passwordbox "This script requires administrative privilege. Please authenticate to begin the installation.\n\n[sudo] Password for user $user:" 12 50 3>&2 2>&1 1>&3-)
+#exec sudo -S -p '' "$0" "$@" <<< "$pass"
+#exit 1
+#fi
+
+if [ $EUID != 0 ]; then
+    sudo "$0" "$@"
+    exit $?
 fi
 
 user=$(dialog --backtitle "Jorisify" --title "Username" --inputbox "What is your username? (LOWERCASE!)" 8 40 \
@@ -76,7 +81,7 @@ if dialog --stdout --title "Warning!" \
     sudo -u $user makepkg -si
     cd ..
     rm -rf yay
-    sudo -u $user yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
+    yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
     
     # Nuking old install files if present
     cd $home || return
