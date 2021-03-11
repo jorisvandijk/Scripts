@@ -9,8 +9,8 @@
 #          Published under GPL-3.0-or-later
 
 # Set $user and $home
-user=$USER
-home=$HOME
+#user=$USER
+#home=$HOME
 
 # Check that the script is running as root. If not, then prompt for the sudo
 # password and re-execute this script with sudo.
@@ -21,11 +21,16 @@ exec sudo -S -p '' "$0" "$@" <<< "$pass"
 exit 1
 fi
 
-# Check directory
-#if [[ $PWD == $home/jorisify ]]; then
-#    echo "In correct directory."; echo
-#    else clear; echo "Please run this script from within the Jorisify repository directory. Aborting!"; exit
-#fi
+user=$(dialog --backtitle "Jorisify" --title "Username" --inputbox "What is your username? (LOWERCASE!)" 8 40 \
+    3>&1 1>&2 2>&3 3>&- )
+
+home="/home/$user"
+
+ Check directory
+if [[ $PWD == $home/jorisify ]]; then
+    echo "In correct directory."; echo
+    else clear; echo "Please run this script from within the Jorisify repository directory. Aborting!"; exit
+fi
 
 # Check for pkglist.txt
 FILE=pkglist.txt
