@@ -43,7 +43,7 @@ if [[ -f "$FILE" ]]; then
 fi
 
 # Warn user of dangers
-if dialog --title "Warning!" \
+if whiptail --title "Warning!" \
 --backtitle "Jorisify" --yesno "This script does irreversable damage to your system! \
 are you sure you want to continue?" 10 50 3>&1 1>&2 2>&3; then
 
@@ -52,23 +52,22 @@ echo "Updating and installing needed applications..."
 pacman -Syyu --noconfirm firefox xclip
 
 # Git setup
-GU=$(dialog --backtitle "Jorisify" --title "Git username" --inputbox "What is your git global username? (e.g. Joris)" 8 40 \
+GU=$(whiptail --backtitle "Jorisify" --title "Git username" --inputbox "What is your git global username? (e.g. Joris)" 8 40 \
 3>&1 1>&2 2>&3 3>&- )
 
-GE=$(dialog --backtitle "Jorisify" --title "Git email address" --inputbox "What is your git email address?" 8 40 \
+GE=$(whiptail --backtitle "Jorisify" --title "Git email address" --inputbox "What is your git email address?" 8 40 \
 3>&1 1>&2 2>&3 3>&- )
 
-GN=$(dialog --backtitle "Jorisify" --title "Git system name" --inputbox "What name would you like this system to get on GitLab? (e.g. JorisPC)" 8 40 \
+GN=$(whiptail --backtitle "Jorisify" --title "Git system name" --inputbox "What name would you like this system to get on GitLab? (e.g. JorisPC)" 8 40 \
 3>&1 1>&2 2>&3 3>&- )
 
 sudo -u $user git config --global user.name ${GU}
 sudo -u $user git config --global user.email ${GE}
 
 # SSH keygen
-sudo -u $user ssh-keygen -t rsa -q -f "$home/.ssh/id_rsa" -N "" -C "$GN" 
-cat $home/.ssh/id_rsa.pub | xclip -sel clip
+sudo -u $user ssh-keygen -t rsa -q -f "$home/.ssh/id_rsa" -N "" -C "$GN" && cat $home/.ssh/id_rsa.pub | xclip -sel clip
 
-dialog --backtitle "Jorisify" --title "SSH key for GitLab" --msgbox "\
+whiptail --backtitle "Jorisify" --title "SSH key for GitLab" --msgbox "\
 Now we have to add this new system's SSH key to your GitLab account. \
 The key has already been copied to your clipboard!\n\n\
 CTRL+click this link: https://gitlab.com/-/profile/keys\n\n\
@@ -182,6 +181,6 @@ echo "Installation aborted."
 exit
 fi
 clear
-dialog --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
+whiptail --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
 That's all folks!\n\nFor Optimus to function correctly, please reboot!" 20 100
 exit
