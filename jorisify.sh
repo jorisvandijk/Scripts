@@ -21,9 +21,10 @@ exec sudo -S -p '' "$0" "$@" <<< "$pass"
 exit 1
 fi
 
-user=$(dialog --backtitle "Jorisify" --title "Username" --inputbox "What is your username? (LOWERCASE!)" 8 40 \
-    3>&1 1>&2 2>&3 3>&- )
+#user=$(dialog --backtitle "Jorisify" --title "Username" --inputbox "What is your username? (LOWERCASE!)" 8 40 \
+#    3>&1 1>&2 2>&3 3>&- )
 
+user=$SUDO_USER
 home="/home/$user"
 
 ## Check directory
@@ -66,8 +67,6 @@ home="/home/$user"
     #echo "Updating system and installing packages"
     #pacman -Syyu --noconfirm 
     #pacman -S --noconfirm $(cat pkglist.txt|xargs)
-    
-    su - $user
     
     sudo -u $user git clone https://aur.archlinux.org/yay.git
     cd yay
@@ -161,7 +160,8 @@ home="/home/$user"
    #cat $home/.ssh/id_ed25519.pub 
    #echo
 
-   cd /home || return; chown -R $user &user
+   cd /home || return
+   chown -R $user &user
 else
     clear
     echo "Installation aborted."
