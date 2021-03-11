@@ -12,7 +12,7 @@
 # password and re-execute this script with sudo.
 if [ "$(id -nu)" != "root" ]; then
 sudo -k
-pass=$(dialog --backtitle "Jorisify" --title "Authentication required" --passwordbox \
+pass=$(whiptail --backtitle "Jorisify" --title "Authentication required" --passwordbox \
 "This script requires administrative privilege. Please authenticate to begin the installation.\n\n[sudo] Password for user $user:" 12 50 3>&2 2>&1 1>&3-)
 exec sudo -S -p '' "$0" "$@" <<< "$pass"
 exit 1
@@ -43,25 +43,29 @@ if [[ -f "$FILE" ]]; then
 fi
 
 # Warn user of dangers
-if dialog --stdout --title "Warning!" \
+if whiptail --stdout --title "Warning!" \
 --backtitle "Jorisify" --yesno "This script does irreversable damage to your system! \
 are you sure you want to continue?" 10 50; then
 
+# Install needed applications
+echo "Updating and installing needed applications..."
+pacman -Syyu --noconfirm firefox xclip
+
 # Git setup
-GU=$(dialog --backtitle "Jorisify" --title "Git username" --inputbox "What is your git global username? (e.g. Joris)" 8 40 \
+GU=$(whiptail --backtitle "Jorisify" --title "Git username" --inputbox "What is your git global username? (e.g. Joris)" 8 40 \
 3>&1 1>&2 2>&3 3>&- )
 
-GE=$(dialog --backtitle "Jorisify" --title "Git email address" --inputbox "What is your git email address?" 8 40 \
+GE=$(whiptail --backtitle "Jorisify" --title "Git email address" --inputbox "What is your git email address?" 8 40 \
 3>&1 1>&2 2>&3 3>&- )
 
-GN=$(dialog --backtitle "Jorisify" --title "Git system name" --inputbox "What name would you like this system to get on GitLab? (e.g. JorisPC)" 8 40 \
+GN=$(whiptail --backtitle "Jorisify" --title "Git system name" --inputbox "What name would you like this system to get on GitLab? (e.g. JorisPC)" 8 40 \
 3>&1 1>&2 2>&3 3>&- )
 
 # SSH keygen
 sudo -u $user ssh-keygen -t ed25519 -C "$GN"
 
 cat $HOME/.ssh/id_ed25519.pub | xclip -sel clip
-dialog --backtitle "Jorisify" --title "SSH key for GitLab" --msgbox "\
+whiptail --backtitle "Jorisify" --title "SSH key for GitLab" --msgbox "\
 Now we have to add this new system's SSH key to your GitLab account. \
 The key has already been copied to your clipboard!\n\n\
 CTRL+click this link: https://gitlab.com/-/profile/keys\n\n\
@@ -70,7 +74,6 @@ If the key is not copied successfully, you can find it in \$HOME/.ssh/id_ed25519
 
 # Installing pacman packages
 clear
-pacman -Syyu --noconfirm 
 pacman -S --noconfirm $(cat pkglist.txt|xargs)
 
 # Install yay
@@ -178,7 +181,6 @@ echo "Installation aborted."
 exit
 fi
 clear
-cat $HOME/.ssh/id_ed25519.pub | xclip -sel clip
-dialog --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
+whiptail --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
 That's all folks!\n\nFor Optimus to function correctly, please reboot!" 20 100
 exit
