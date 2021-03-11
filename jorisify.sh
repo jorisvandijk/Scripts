@@ -12,6 +12,11 @@
 #user=$USER
 #home=$HOME
 
+user=$(dialog --backtitle "Jorisify" --title "Username" --inputbox "What is your username? (LOWERCASE!)" 8 40 \
+    3>&1 1>&2 2>&3 3>&- )
+
+home="/home/$user"
+
 # Check directory
 if [[ $PWD == $home/jorisify ]]; then
     echo "In correct directory."; echo
@@ -40,11 +45,6 @@ pass=$(whiptail --backtitle "Jorisify" --title "Authentication required" --passw
 exec sudo -S -p '' "$0" "$@" <<< "$pass"
 exit 1
 fi
-
-user=$(dialog --backtitle "Jorisify" --title "Username" --inputbox "What is your username? (LOWERCASE!)" 8 40 \
-    3>&1 1>&2 2>&3 3>&- )
-
-home="/home/$user"
 
 # Git
 #read -p $'What is your git global username? (e.g. Joris): ' GU
