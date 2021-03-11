@@ -46,11 +46,6 @@ if [[ -f "$FILE" ]]; then
     else clear; echo "pkglist_aur.txt is missing. Aborting!"; exit
 fi
 
-# Git
-#read -p $'What is your git global username? (e.g. Joris): ' GU
-#read -p $'What is your git email address?: ' GE
-#read -p $'What name would you like this system to get on GitLab? (e.g. JorisPC): ' GN
-
 # Warn user of dangers
 if dialog --stdout --title "Warning!" \
           --backtitle "Jorisify" \
