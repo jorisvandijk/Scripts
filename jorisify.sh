@@ -14,16 +14,11 @@
 
 # Check that the script is running as root. If not, then prompt for the sudo
 # password and re-execute this script with sudo.
-#if [ "$(id -nu)" != "root" ]; then
-#sudo -k
-#pass=$(whiptail --backtitle "Jorisify" --title "Authentication required" --passwordbox "This script requires administrative privilege. Please authenticate to begin the installation.\n\n[sudo] Password for user $user:" 12 50 3>&2 2>&1 1>&3-)
-#exec sudo -S -p '' "$0" "$@" <<< "$pass"
-#exit 1
-#fi
-
-if [ $EUID != 0 ]; then
-    sudo "$0" "$@"
-    exit $?
+if [ "$(id -nu)" != "root" ]; then
+sudo -k
+pass=$(whiptail --backtitle "Jorisify" --title "Authentication required" --passwordbox "This script requires administrative privilege. Please authenticate to begin the installation.\n\n[sudo] Password for user $user:" 12 50 3>&2 2>&1 1>&3-)
+exec sudo -S -p '' "$0" "$@" <<< "$pass"
+exit 1
 fi
 
 user=$(dialog --backtitle "Jorisify" --title "Username" --inputbox "What is your username? (LOWERCASE!)" 8 40 \
@@ -76,9 +71,11 @@ if dialog --stdout --title "Warning!" \
     echo "Updating system and installing packages"
     pacman -Syyu --noconfirm 
     pacman -S --noconfirm $(cat pkglist.txt|xargs)
-    sudo -u $user git clone https://aur.archlinux.org/yay.git
+
+    su - $user
+    git clone https://aur.archlinux.org/yay.git
     cd yay
-    sudo -u $user makepkg -si
+    makepkg -si
     cd ..
     rm -rf yay
     yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
@@ -161,7 +158,7 @@ if dialog --stdout --title "Warning!" \
     vim +PluginInstall +qall
 
     # SSH keygen
-    sudo -u ssh-keygen -t ed25519 -C "$GN"
+    ssh-keygen -t ed25519 -C "$GN"
     echo 
     echo -e "Now copy the following key and head to https://gitlab.com/-/profile/keys and fill out the form."
     echo
