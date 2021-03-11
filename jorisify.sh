@@ -62,10 +62,10 @@ if dialog --stdout --title "Warning!" \
     3>&1 1>&2 2>&3 3>&- )
 
     # Installing packages and yay
-    clear
-    echo "Updating system and installing packages"
-    pacman -Syyu --noconfirm 
-    pacman -S --noconfirm $(cat pkglist.txt|xargs)
+    #clear
+    #echo "Updating system and installing packages"
+    #pacman -Syyu --noconfirm 
+    #pacman -S --noconfirm $(cat pkglist.txt|xargs)
 
     su - $user
     git clone https://aur.archlinux.org/yay.git
