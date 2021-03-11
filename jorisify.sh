@@ -12,13 +12,6 @@
 user=$USER
 home=$HOME
 
-# Get  priveleges
-#echo "This script requires root priveleges!"
-#if [ $EUID != 0 ]; then
-#     "$0" "$@"
-#    exit $?
-#fi
-
 # Check that the script is running as root. If not, then prompt for the sudo
 # password and re-execute this script with sudo.
 if [ "$(id -nu)" != "root" ]; then
@@ -29,10 +22,10 @@ exit 1
 fi
 
 # Check directory
-if [[ $PWD == $home/jorisify ]]; then
-    echo "In correct directory."; echo
-    else clear; echo "Please run this script from within the Jorisify repository directory. Aborting!"; exit
-fi
+#if [[ $PWD == $home/jorisify ]]; then
+#    echo "In correct directory."; echo
+#    else clear; echo "Please run this script from within the Jorisify repository directory. Aborting!"; exit
+#fi
 
 # Check for pkglist.txt
 FILE=pkglist.txt
@@ -75,9 +68,9 @@ if dialog --stdout --title "Warning!" \
     pacman -S --noconfirm $(cat pkglist.txt|xargs)
     git clone https://aur.archlinux.org/yay.git
     cd yay
-    makepkg -si
+    sudo -u $user makepkg -si
+    cd ..
     rm -rf yay
-    cd $home/jorisify_install
     sudo -u $user yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
     
     # Nuking old install files if present
@@ -96,7 +89,9 @@ if dialog --stdout --title "Warning!" \
     gpasswd -a $user video
 
     # Grab GitLab repositories
-
+    git config --global user.name ${GU}
+    git config --global user.email ${GE}
+    
     # Scripts
     git clone https://gitlab.com/jorisvandijk/scripts.git $home/Scripts
     cd $home/Scripts
@@ -155,9 +150,7 @@ if dialog --stdout --title "Warning!" \
     git clone https://github.com/VundleVim/Vundle.vim.git $home/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
 
-    # Git
-    git config --global user.name ${GU}
-    git config --global user.email ${GE}
+    # SSH keygen
     ssh-keygen -t ed25519 -C "$GN"
     echo 
     echo -e "Now copy the following key and head to https://gitlab.com/-/profile/keys and fill out the form."
@@ -172,7 +165,7 @@ else
     rm -rf $home/jorisify_install
     exit
 fi
-clear
+#clear
 echo -e "Installation is done!"
 echo
 echo -e "For Optimus to function correctly, please reboot!"
