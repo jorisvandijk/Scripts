@@ -43,9 +43,9 @@ if [[ -f "$FILE" ]]; then
 fi
 
 # Warn user of dangers
-if whiptail --stdout --title "Warning!" \
+if whiptail --title "Warning!" \
 --backtitle "Jorisify" --yesno "This script does irreversable damage to your system! \
-are you sure you want to continue?" 10 50; then
+are you sure you want to continue?" 10 50 3>&1 1>&2 2>&3; then
 
 # Install needed applications
 echo "Updating and installing needed applications..."
