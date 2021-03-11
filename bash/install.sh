@@ -11,7 +11,6 @@
 C='\033[1;35m' # Color
 NC='\033[0m'   # No Color
 
-cd $HOME || return
 echo
 echo
 echo -e "${C}Welcome back! Let's get this puppy rollin'!${NC}"
