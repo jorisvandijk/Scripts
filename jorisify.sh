@@ -8,18 +8,39 @@
 #
 #          Published under GPL-3.0-or-later
 
-# Get sudo priveleges
-echo "This script requires root priveleges!"
-if [ $EUID != 0 ]; then
-    sudo "$0" "$@"
-    exit $?
-fi
-
 # Go home
 cd $HOME || return
 
-# Get username
+# Set $USER and $HOME
 USER=$USER
+HOME="/home/$USER"
+
+# Get  priveleges
+echo "This script requires root priveleges!"
+if [ $EUID != 0 ]; then
+     "$0" "$@"
+    exit $?
+fi
+
+# Check directory
+if [[ pwd == $HOME/jorisify ]]; then
+    echo "In correct directory."; echo
+    else clear; echo "Please run this script from within the Jorisify repository directory. Aborting!"; exit
+fi
+
+# Check for pkglist.txt
+FILE=pkglist.txt
+if [[ -f "$FILE" ]]; then
+    echo "$FILE present."; echo
+    else clear; echo "pkglist.txt is missing. Aborting!"; exit
+fi
+
+# Check for pkglist_aur.txt
+FILE=pkglist_aur.txt
+if [[ -f "$FILE" ]]; then
+    echo "$FILE present."; echo
+    else clear; echo "pkglist_aur.txt is missing. Aborting!"; exit
+fi
 
 # Git
 read -p $'What is your git global username? (e.g. Joris): ' GU
@@ -34,14 +55,14 @@ if dialog --stdout --title "Warning!" \
 
             # Installing packages and yay
             echo "Updating system and installing packages"
-            sudo pacman -Syyu --noconfirm 
-            sudo pacman -S --noconfirm $(cat pkglist.txt|xargs)
+            pacman -Syyu --noconfirm 
+            pacman -S --noconfirm $(cat pkglist.txt|xargs)
             git clone https://aur.archlinux.org/yay.git
             cd yay
             makepkg -si
             rm -rf yay
             cd $HOME/jorisify_install
-            yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
+            sudo -u $USER yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
             
             # Nuking old install files if present
             cd $HOME || return
@@ -52,11 +73,11 @@ if dialog --stdout --title "Warning!" \
             modprobe vboxdrv
 
             # Optimus switching fix
-            sudo mv /etc/X11/xorg.conf xorg.conf_ 
+            mv /etc/X11/xorg.conf xorg.conf_ 
 
             # Backlight fix
-            sudo chmod +s /usr/bin/light
-            sudo gpasswd -a $USER video
+            chmod +s /usr/bin/light
+            gpasswd -a $USER video
 
             # Grab GitLab repositories
 
