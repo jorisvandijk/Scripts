@@ -43,7 +43,7 @@ if [[ -f "$FILE" ]]; then
 fi
 
 # Warn user of dangers
-if whiptail --title "Warning!" \
+if dialog --title "Warning!" \
 --backtitle "Jorisify" --yesno "This script does irreversable damage to your system! \
 are you sure you want to continue?" 10 50 3>&1 1>&2 2>&3; then
 
@@ -52,27 +52,28 @@ echo "Updating and installing needed applications..."
 pacman -Syyu --noconfirm firefox xclip
 
 # Git setup
-GU=$(whiptail --backtitle "Jorisify" --title "Git username" --inputbox "What is your git global username? (e.g. Joris)" 8 40 \
+GU=$(dialog --backtitle "Jorisify" --title "Git username" --inputbox "What is your git global username? (e.g. Joris)" 8 40 \
 3>&1 1>&2 2>&3 3>&- )
 
-GE=$(whiptail --backtitle "Jorisify" --title "Git email address" --inputbox "What is your git email address?" 8 40 \
+GE=$(dialog --backtitle "Jorisify" --title "Git email address" --inputbox "What is your git email address?" 8 40 \
 3>&1 1>&2 2>&3 3>&- )
 
-GN=$(whiptail --backtitle "Jorisify" --title "Git system name" --inputbox "What name would you like this system to get on GitLab? (e.g. JorisPC)" 8 40 \
+GN=$(dialog --backtitle "Jorisify" --title "Git system name" --inputbox "What name would you like this system to get on GitLab? (e.g. JorisPC)" 8 40 \
 3>&1 1>&2 2>&3 3>&- )
 
 sudo -u $user git config --global user.name ${GU}
 sudo -u $user git config --global user.email ${GE}
 
 # SSH keygen
-sudo -u $user ssh-keygen -t rsa -q -f "$home/.ssh/id_rsa" -N "" -C "$GN" && cat $home/.ssh/id_rsa.pub | xclip -sel clip
+sudo -u $user ssh-keygen -t rsa -q -f "$home/.ssh/id_rsa" -N "" -C "$GN" 
+cat $home/.ssh/id_rsa.pub | xclip -sel clip
 
-whiptail --backtitle "Jorisify" --title "SSH key for GitLab" --msgbox "\
+dialog --backtitle "Jorisify" --title "SSH key for GitLab" --msgbox "\
 Now we have to add this new system's SSH key to your GitLab account. \
 The key has already been copied to your clipboard!\n\n\
 CTRL+click this link: https://gitlab.com/-/profile/keys\n\n\
 Please do not skip this step in order for Git to clone private repositories!\n\n\n\n\
-If the key is not copied successfully, you can find it in \$HOME/.ssh/id_ed25519.pub" 20 100
+If the key is not copied successfully, you can find it in \$HOME/.ssh/rsa.pub" 20 100
 
 # Installing pacman packages
 clear
@@ -181,6 +182,6 @@ echo "Installation aborted."
 exit
 fi
 clear
-whiptail --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
+dialog --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
 That's all folks!\n\nFor Optimus to function correctly, please reboot!" 20 100
 exit
