@@ -31,7 +31,12 @@ fi
 # Warn user of dangers
 if dialog --stdout --title "Warning!" \
 --backtitle "Jorisify" --yesno "This script does irreversable damage to your system! \
-are you sure you want to continue?" 10 50; then
+are you sure you want to continue?" 10 50; then clear
+else
+clear
+echo "Installation aborted."
+exit
+fi
 
 # Get root privileges
 printf '%s\n' "$(dialog --title "Root/Sudo password" --backtitle "Jorisify" --output-fd 1 --passwordbox "Please enter root password:" 10 40)" | sudo -Svp ''
@@ -41,14 +46,14 @@ clear
 sudo pacman -Syyu --noconfirm firefox xclip
 
 # Git setup
-GU=$(dialog --backtitle "Jorisify" --title "Git username" --inputbox \
-"What is your git global username? (e.g. Joris)" 8 40 3>&1 1>&2 2>&3 3>&- )
+GU=$(dialog --stdout --backtitle "Jorisify" --title "Git username" --inputbox \
+"What is your git global username? (e.g. Joris)" 8 40)
 
-GE=$(dialog --backtitle "Jorisify" --title "Git email address" --inputbox \
-"What is your git email address?" 8 40 3>&1 1>&2 2>&3 3>&- )
+GE=$(dialog --stdout  --backtitle "Jorisify" --title "Git email address" --inputbox \
+"What is your git email address?" 8 40)
 
-GN=$(dialog --backtitle "Jorisify" --title "Git system name" --inputbox \
-"What name would you like this system to get on GitLab? (e.g. JorisPC)" 8 40 3>&1 1>&2 2>&3 3>&- )
+GN=$(dialog --stdout  --backtitle "Jorisify" --title "Git system name" --inputbox \
+"What name would you like this system to get on GitLab? (e.g. JorisPC)" 8 40)
 
 git config --global user.name ${GU}
 git config --global user.email ${GE}
@@ -113,11 +118,7 @@ vim +PluginInstall +qall
 rm -rf $HOME/jorisify
 
 # End of script
-else
-clear
-echo "Installation aborted."
-exit
-fi
+
 #clear
 #dialog --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
 #That's all folks!\n\nFor Optimus to function correctly, please reboot!" 20 100
