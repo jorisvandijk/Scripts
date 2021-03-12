@@ -38,7 +38,7 @@ printf '%s\n' "$(dialog --title "Root/Sudo password" --backtitle "Jorisify" --ou
 clear
 
 # Install needed applications
-pacman -Syyu --noconfirm firefox xclip
+sudo pacman -Syyu --noconfirm firefox xclip
 
 # Git setup
 GU=$(dialog --backtitle "Jorisify" --title "Git username" --inputbox \
