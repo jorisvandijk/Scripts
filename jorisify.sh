@@ -8,49 +8,36 @@
 #
 #          Published under GPL-3.0-or-later
 
-# Check that the script is running as root. If not, then prompt for the sudo
-# password and re-execute this script with sudo.
-if [ "$(id -nu)" != "root" ]; then
-sudo -k
-pass=$(whiptail --backtitle "Jorisify" --title "Authentication required" --passwordbox \
-"This script requires administrative privilege. Please authenticate to begin the installation.\n\n[sudo] Password for user $user:" 12 50 3>&2 2>&1 1>&3-)
-exec sudo -S -p '' "$0" "$@" <<< "$pass"
-exit 1
+
+# Check directory
+if [[ $PWD == $HOME/jorisify ]]; then
+    echo "In correct directory."; echo
+    else clear; echo "Please run this script from within the Jorisify repository directory. Aborting!"; exit
 fi
 
-# Set user and home
-user=$SUDO_USER
-home="/home/$user"
-#
-## Check directory
-#if [[ $PWD == $home/jorisify ]]; then
-#    echo "In correct directory."; echo
-#    else clear; echo "Please run this script from within the Jorisify repository directory. Aborting!"; exit
-#fi
-#
-## Check for pkglist.txt
-#FILE=pkglist.txt
-#if [[ -f "$FILE" ]]; then
-#    echo "$FILE present."; echo
-#    else clear; echo "pkglist.txt is missing. Aborting!"; exit
-#fi
-#
-## Check for pkglist_aur.txt
-#FILE=pkglist_aur.txt
-#if [[ -f "$FILE" ]]; then
-#    echo "$FILE present."; echo
-#    else clear; echo "pkglist_aur.txt is missing. Aborting!"; exit
-#fi
-#
-## Warn user of dangers
+# Check for pkglist.txt
+FILE=pkglist.txt
+if [[ -f "$FILE" ]]; then
+    echo "$FILE present."; echo
+    else clear; echo "pkglist.txt is missing. Aborting!"; exit
+fi
+
+# Check for pkglist_aur.txt
+FILE=pkglist_aur.txt
+if [[ -f "$FILE" ]]; then
+    echo "$FILE present."; echo
+    else clear; echo "pkglist_aur.txt is missing. Aborting!"; exit
+fi
+
+# Warn user of dangers
 if whiptail --title "Warning!" \
 --backtitle "Jorisify" --yesno "This script does irreversable damage to your system! \
 are you sure you want to continue?" 10 50 3>&1 1>&2 2>&3; then
 
-## Install needed applications
-#echo "Updating and installing needed applications..."
-#pacman -Syyu --noconfirm firefox xclip
-#
+# Install needed applications
+printf '%s\n' "$(dialog --backtitle "Jorisify" --output-fd 1 --title "Root password" --passwordbox "Please enter root password:" 10 30)" | sudo -Svp ''
+pacman -Syyu --noconfirm firefox xclip
+
 ## Git setup
 #GU=$(whiptail --backtitle "Jorisify" --title "Git username" --inputbox "What is your git global username? (e.g. Joris)" 8 40 \
 #3>&1 1>&2 2>&3 3>&- )
@@ -61,12 +48,12 @@ are you sure you want to continue?" 10 50 3>&1 1>&2 2>&3; then
 #GN=$(whiptail --backtitle "Jorisify" --title "Git system name" --inputbox "What name would you like this system to get on GitLab? (e.g. JorisPC)" 8 40 \
 #3>&1 1>&2 2>&3 3>&- )
 #
-#sudo -u $user git config --global user.name ${GU}
-#sudo -u $user git config --global user.email ${GE}
+#git config --global user.name ${GU}
+#git config --global user.email ${GE}
 #
 ## SSH keygen
-#sudo -u $user ssh-keygen -t rsa -q -f "$home/.ssh/id_rsa" -N "" -C "$GN"
-#cat $home/.ssh/id_rsa.pub | xclip -sel clip
+#ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N "" -C "$GN"
+#cat $HOME/.ssh/id_rsa.pub | xclip -sel clip
 #
 #whiptail --backtitle "Jorisify" --title "SSH key for GitLab" --msgbox "\
 #Now we have to add this new system's SSH key to your GitLab account. \
@@ -77,55 +64,51 @@ are you sure you want to continue?" 10 50 3>&1 1>&2 2>&3; then
 #
 ## Installing pacman packages
 #clear
-#pacman -S --noconfirm $(cat pkglist.txt|xargs)
+#sudo pacman -S --noconfirm $(cat pkglist.txt|xargs)
+#
 ## Install yay
-#sudo -u $user git clone https://aur.archlinux.org/yay.git
+#git clone https://aur.archlinux.org/yay.git
 #cd yay
-#sudo -u $user makepkg -si
+#makepkg -si
 #cd ..
 #rm -rf yay
-#sudo -u $user yay -S --noconfirm --removemake $(cat pkglist_aur.txt|xargs)
-#
-## Nuking old install files if present
-cd $home || return
-rm -rf $home/.config
-rm $home/.bashrc 
-#
-## Virtualbox fix
-#modprobe vboxdrv
-#
-## Optimus switching fix
-#mv /etc/X11/xorg.conf xorg.conf_ 
-#
-## Backlight fix
-#chmod +s /usr/bin/light
-#gpasswd -a $user video
+#yay -S --noconfirm --removemake $(cat pkglist_aur.txt|xargs)
+
+# Nuking old install files if present
+$HOME || return
+-rf $HOME/.config
+$HOME/.bashrc 
+
+# Virtualbox fix
+sudo modprobe vboxdrv
+
+# Optimus switching fix
+sudo mv /etc/X11/xorg.conf xorg.conf_ 
+
+# Backlight fix
+sudo chmod +s /usr/bin/light
+sudo gpasswd -a $USER video
 
 # Grab GitLab repositories
-ssh-keyscan github.com >> ~/.ssh/known_hosts
-sudo -u $user git clone git@gitlab.com:jorisvandijk/scripts.git $home/Scripts
-sudo -u $user git clone git@gitlab.com:jorisvandijk/dotfiles.git $home/Dotfiles
-sudo -u $user git clone git@gitlab.com:jorisvandijk/wallpapers.git $home/Pictures/wallpapers
-sudo -u $user git clone git@gitlab.com:jorisvandijk/notes.git $home/Documents/Notes
-sudo -u $user git clone git@gitlab.com:jorisvandijk/freetube.git $home/.config/FreeTube
-sudo -u $user git clone git@gitlab.com:jorisvandijk/firefox.git $home/.mozilla/firefox
-sudo -u $user git clone git@gitlab.com:jorisvandijk/kee.git $home/Documents/Kee
-sudo -u $user git clone git@gitlab.com:jorisvandijk/jorisify.git $home/Jorisify
+#ssh-keyscan github.com >> ~/.ssh/known_hosts
+#git clone git@gitlab.com:jorisvandijk/scripts.git $HOME/Scripts
+#git clone git@gitlab.com:jorisvandijk/dotfiles.git $HOME/Dotfiles
+#git clone git@gitlab.com:jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
+#git clone git@gitlab.com:jorisvandijk/notes.git $HOME/Documents/Notes
+#git clone git@gitlab.com:jorisvandijk/freetube.git $HOME/.config/FreeTube
+#git clone git@gitlab.com:jorisvandijk/firefox.git $HOME/.mozilla/firefox
+#git clone git@gitlab.com:jorisvandijk/kee.git $HOME/Documents/Kee
+#git clone git@gitlab.com:jorisvandijk/jorisify.git $HOME/Jorisify
 
-sudo -u $user bash << EOF
-cd $home/Dotfiles/ || return
+cd $HOME/Dotfiles/ || return
 for d in *; do stow -v -t ~ "$d" ;done
-EOF
 
 # Setting up Vundle for Vim
-git clone https://github.com/VundleVim/Vundle.vim.git $home/.vim/bundle/Vundle.vim
-sudo -u $user vim +PluginInstall +qall
-
-# Fix permissions
-sudo chown -R $user:$user $home
+git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
 
 # Remove install directory
-rm -rf $home/jorisify
+rm -rf $HOME/jorisify
 
 # End of script
 else
