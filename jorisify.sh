@@ -71,6 +71,9 @@ fi
     #fi
 
     # Switch terminal
+    terminal=$(dialog --stdout --backtitle "Jorisify" --title "Favorite Terminal" --inputbox \
+    "What is your favorite terminal emulator? (e.g. xfce4-terminal)" 8 40)
+    
     if dialog --stdout --title "Switch Terminal Emulator" \
     --backtitle "Jorisify" --yesno "Would you like to switch to $terminal?" 10 50; then 
         clear; echo
