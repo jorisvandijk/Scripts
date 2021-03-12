@@ -8,6 +8,15 @@
 #
 #          Published under GPL-3.0-or-later
 
+
+rooting()
+    {
+    # Get root privileges
+    printf '%s\n' "$(dialog --title "Root/Sudo password" --backtitle "Jorisify" \
+    --output-fd 1 --passwordbox "Please enter root password:" 10 40)" | sudo -Svp ''
+    clear
+    }
+
 one()
     {
 # Check directory
@@ -42,11 +51,8 @@ fi
 
     terminal=$(dialog --stdout --backtitle "Jorisify" --title "Favorite Terminal" --inputbox \
     "What is your favorite terminal emulator? (e.g. xfce4-terminal)" 8 40)
-    
-    # Get root privileges
-    printf '%s\n' "$(dialog --title "Root/Sudo password" --backtitle "Jorisify" \
-    --output-fd 1 --passwordbox "Please enter root password:" 10 40)" | sudo -Svp ''
-    clear
+
+    rooting
 
     # Install needed applications
     sudo pacman -Syyu --needed --noconfirm firefox xclip $terminal
@@ -92,7 +98,7 @@ two() {
     If the key is not copied successfully, you can find it in \$HOME/.ssh/rsa.pub" 20 100
 
     # Installing pacman packages
-    clear
+    rooting
     sudo pacman -S --noconfirm --needed $(cat pkglist.txt|xargs)
 
     # Install yay
@@ -112,6 +118,8 @@ two() {
     cd $HOME || return
     rm -rf $HOME/.config
     rm $HOME/.bashrc 
+    killall firefox
+    rm -rf $HOME/.mozilla
 
     # Virtualbox fix
     sudo modprobe vboxdrv
@@ -147,8 +155,8 @@ two() {
 
     # End of script
     clear
-    dialog --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
-    That's all folks!\n\nFor Optimus to function correctly, please reboot!" 20 100
+    dialog --backtitle "Jorisify" --title "Jorisification complete!" --msgbox \
+    "That's all folks!\n\nFor Optimus to function correctly, please reboot!" 20 100
     }
 
 if [ -n "$1" ]; then
