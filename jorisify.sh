@@ -35,8 +35,7 @@ if whiptail --title "Warning!" \
 are you sure you want to continue?" 10 50 3>&1 1>&2 2>&3; then
 
 # Install needed applications
-printf '%s\n' "$(dialog --backtitle "Jorisify" --output-fd 1 --title "Root password" --passwordbox "Please enter root password:" 10 30)" | sudo -Svp ''
-pacman -Syyu --noconfirm firefox xclip
+printf '%s\n' "$(dialog --backtitle "Jorisify" --output-fd 1 --title "Root password" --passwordbox "Please enter root password:" 10 30)" | sudo -Svp '' && pacman -Syyu --noconfirm firefox xclip
 
 ## Git setup
 #GU=$(whiptail --backtitle "Jorisify" --title "Git username" --inputbox "What is your git global username? (e.g. Joris)" 8 40 \
