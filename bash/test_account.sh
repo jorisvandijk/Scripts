@@ -7,9 +7,9 @@
 #
 #          Published under GPL-3.0-or-later
 
-echo -n "Would you like to [c]reate a user or [d]elete a user?: "
+echo -n "Would you like to [a]dd a user or [d]elete a user?: "
 read make
-if [ $make == c ]
+if [ $make == a ]
 then
     echo -n "Enter the username and press [ENTER]: "
     read name
