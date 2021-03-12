@@ -2,7 +2,7 @@ autotiling
 chrysalis-bin
 freetube-bin
 micro
-nordic-theme-git
+nordic-darker-theme-git
 optimus-manager 
 otf-code-new-roman
 spotify  

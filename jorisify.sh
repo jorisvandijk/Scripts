@@ -85,7 +85,7 @@ cd yay
 sudo -u $user makepkg -si
 cd ..
 rm -rf yay
-sudo -u $user yay -S --noconfirm $(cat pkglist_aur.txt|xargs)
+sudo -u $user yay -S --noconfirm --removemake $(cat pkglist_aur.txt|xargs)
 
 # Nuking old install files if present
 cd $home || return
