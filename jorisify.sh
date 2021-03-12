@@ -29,9 +29,9 @@ if [[ -f "$FILE" ]]; then
 fi
 
 # Warn user of dangers
-if dialog --title "Warning!" \
+if dialog --stdout --title "Warning!" \
 --backtitle "Jorisify" --yesno "This script does irreversable damage to your system! \
-are you sure you want to continue?" 10 50 3>&1 1>&2 2>&3; then
+are you sure you want to continue?" 10 50; then
 
 # Get root privileges
 printf '%s\n' "$(dialog --title "Root/Sudo password" --backtitle "Jorisify" --output-fd 1 --passwordbox "Please enter root password:" 10 40)" | sudo -Svp ''
