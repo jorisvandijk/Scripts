@@ -40,6 +40,9 @@ fi
         exit
     fi
 
+    terminal=$(dialog --stdout --backtitle "Jorisify" --title "Favorite Terminal" --inputbox \
+    "What is your favorite terminal emulator? (e.g. xfce4-terminal)" 8 40)
+    
     # Get root privileges
     printf '%s\n' "$(dialog --title "Root/Sudo password" --backtitle "Jorisify" \
     --output-fd 1 --passwordbox "Please enter root password:" 10 40)" | sudo -Svp ''
@@ -49,9 +52,6 @@ fi
     sudo pacman -Syyu --needed --noconfirm firefox xclip $terminal
 
     # Switch terminal
-    terminal=$(dialog --stdout --backtitle "Jorisify" --title "Favorite Terminal" --inputbox \
-    "What is your favorite terminal emulator? (e.g. xfce4-terminal)" 8 40)
-
     if dialog --stdout --title "Switch Terminal Emulator" \
     --backtitle "Jorisify" --yesno "Would you like to switch to $terminal?" 10 50; then 
         clear; echo
