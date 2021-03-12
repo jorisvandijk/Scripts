@@ -112,18 +112,18 @@ sudo -u $user git clone git@gitlab.com:jorisvandijk/firefox.git $home/.mozilla/f
 sudo -u $user git clone git@gitlab.com:jorisvandijk/kee.git $home/Documents/Kee
 sudo -u $user git clone git@gitlab.com:jorisvandijk/jorisify.git $home/Jorisify
 
-
+su - $user
 # Stow magic
 cd $home/Dotfiles/ || return
-for d in *; do sudo -u $user stow -v -t ~ "$d" ;done
+for d in *; do stow -v -t ~ "$d" ;done
 cd $home || return
 
 # Setting up Vundle for Vim
-sudo -u $user git clone https://github.com/VundleVim/Vundle.vim.git $home/.vim/bundle/Vundle.vim
-sudo -u $user vim +PluginInstall +qall
+git clone https://github.com/VundleVim/Vundle.vim.git $home/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
 
 # Fix permissions
-sudo -u $user sudo chown -R $user:$user $home
+sudo chown -R $user:$user $home
 
 # Remove install directory
 rm -rf $home/jorisify
