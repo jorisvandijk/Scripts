@@ -78,7 +78,6 @@ are you sure you want to continue?" 10 50 3>&1 1>&2 2>&3; then
 ## Installing pacman packages
 #clear
 #pacman -S --noconfirm $(cat pkglist.txt|xargs)
-su - $user
 ## Install yay
 #sudo -u $user git clone https://aur.archlinux.org/yay.git
 #cd yay
@@ -88,9 +87,9 @@ su - $user
 #sudo -u $user yay -S --noconfirm --removemake $(cat pkglist_aur.txt|xargs)
 #
 ## Nuking old install files if present
-#cd $home || return
-#rm -rf $home/.config
-#rm $home/.bashrc 
+cd $home || return
+rm -rf $home/.config
+rm $home/.bashrc 
 #
 ## Virtualbox fix
 #modprobe vboxdrv
@@ -101,25 +100,25 @@ su - $user
 ## Backlight fix
 #chmod +s /usr/bin/light
 #gpasswd -a $user video
-echo $USER
+
 # Grab GitLab repositories
-git clone git@gitlab.com:jorisvandijk/scripts.git $home/Scripts
-git clone git@gitlab.com:jorisvandijk/dotfiles.git $home/Dotfiles
-git clone git@gitlab.com:jorisvandijk/wallpapers.git $home/Pictures/wallpapers
-git clone git@gitlab.com:jorisvandijk/notes.git $home/Documents/Notes
-git clone git@gitlab.com:jorisvandijk/freetube.git $home/.config/FreeTube
-git clone git@gitlab.com:jorisvandijk/firefox.git $home/.mozilla/firefox
-git clone git@gitlab.com:jorisvandijk/kee.git $home/Documents/Kee
-git clone git@gitlab.com:jorisvandijk/jorisify.git $home/Jorisify
+sudo -u $user git clone git@gitlab.com:jorisvandijk/scripts.git $home/Scripts
+sudo -u $user git clone git@gitlab.com:jorisvandijk/dotfiles.git $home/Dotfiles
+sudo -u $user git clone git@gitlab.com:jorisvandijk/wallpapers.git $home/Pictures/wallpapers
+sudo -u $user git clone git@gitlab.com:jorisvandijk/notes.git $home/Documents/Notes
+sudo -u $user git clone git@gitlab.com:jorisvandijk/freetube.git $home/.config/FreeTube
+sudo -u $user git clone git@gitlab.com:jorisvandijk/firefox.git $home/.mozilla/firefox
+sudo -u $user git clone git@gitlab.com:jorisvandijk/kee.git $home/Documents/Kee
+sudo -u $user git clone git@gitlab.com:jorisvandijk/jorisify.git $home/Jorisify
 
 # Stow magic
 cd $home/Dotfiles/ || return
-for d in *; do stow -v -t ~ "$d" ;done
+for d in *; do sudo -u $user stow -v -t ~ "$d" ;done
 cd $home || return
 
 # Setting up Vundle for Vim
 git clone https://github.com/VundleVim/Vundle.vim.git $home/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
+sudo -u $user vim +PluginInstall +qall
 
 # Fix permissions
 sudo chown -R $user:$user $home
