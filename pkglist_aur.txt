@@ -1,0 +1,10 @@
+autotiling 
+chrysalis-bin
+freetube-bin
+micro
+nordic-darker-theme-git
+optimus-manager 
+otf-code-new-roman
+spotify  
+ttf-andika
+ttf-comfortaa
