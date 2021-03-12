@@ -102,6 +102,7 @@ rm $home/.bashrc
 #gpasswd -a $user video
 
 # Grab GitLab repositories
+ssh-keyscan github.com >> ~/.ssh/known_hosts
 sudo -u $user git clone git@gitlab.com:jorisvandijk/scripts.git $home/Scripts
 sudo -u $user git clone git@gitlab.com:jorisvandijk/dotfiles.git $home/Dotfiles
 sudo -u $user git clone git@gitlab.com:jorisvandijk/wallpapers.git $home/Pictures/wallpapers
