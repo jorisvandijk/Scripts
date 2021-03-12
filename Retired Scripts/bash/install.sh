@@ -8,6 +8,9 @@
 #
 #          Published under GPL-3.0-or-later
 
+# !! Depreciated script. 
+# !! See https://gitlab.com/jorisvandijk/jorisify 
+
 C='\033[1;35m' # Color
 NC='\033[0m'   # No Color
 
@@ -143,7 +146,7 @@ done
 echo -e "${C}Next up, some Stow magic!${NC}"
 echo
 cd $HOME/Dotfiles/ || return
-for d in *; do stow -v -t ~ "$d" ;done
+for d in *; do stow -t ~ "$d" ;done
 echo
 echo -e "${C}Setting up Vundle for Vim...${NC}"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
