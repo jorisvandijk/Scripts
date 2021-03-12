@@ -58,12 +58,10 @@ $curterm?" 10 50; then
 clear
 echo "Please relaunch this script from $terminal!"
 $terminal &
-disown
-sleep 4
-killall $curterm
+disown &&
+exit
 else
 clear
-exit
 fi
 fi
 
