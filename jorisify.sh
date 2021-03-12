@@ -111,10 +111,10 @@ sudo -u $user git clone git@gitlab.com:jorisvandijk/firefox.git $home/.mozilla/f
 sudo -u $user git clone git@gitlab.com:jorisvandijk/kee.git $home/Documents/Kee
 sudo -u $user git clone git@gitlab.com:jorisvandijk/jorisify.git $home/Jorisify
 
-# Stow magic
+sudo -u $user bash << EOF
 cd $home/Dotfiles/ || return
-for d in *; do sudo -u $user stow -v -t ~ "$d" ;done
-cd $home || return
+for d in *; do stow -v -t ~ "$d" ;done
+EOF
 
 # Setting up Vundle for Vim
 git clone https://github.com/VundleVim/Vundle.vim.git $home/.vim/bundle/Vundle.vim
