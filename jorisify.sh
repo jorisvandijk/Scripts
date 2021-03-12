@@ -30,7 +30,6 @@ if [[ -f "$FILE" ]]; then
     else clear; echo "pkglist_aur.txt is missing. Aborting!"; exit
 fi
 
-
     # Warn user of dangers
     if dialog --stdout --title "Warning!" \
     --backtitle "Jorisify" --yesno "This script does irreversable damage to your system! \
@@ -50,30 +49,9 @@ fi
     sudo pacman -Syyu --needed --noconfirm firefox xclip $terminal
 
     # Switch terminal
-    # NOTE: Works fine, but breaks syntax highlighting!
-    #terminal=xfce4-terminal
-    #curterm=$(ps -o comm= -p "$(($(ps -o ppid= -p "$(($(ps -o sid= -p "$$")))")))")
-    #
-    #if [[ $curterm == $terminal ]]; then
-    #    echo 
-    #else
-    #    if dialog --stdout --title "Terminal Emulator" --backtitle "Jorisify" --yesno "Would you like to use $terminal instead of $curterm?" 10 50; then 
-    #        clear; echo
-    #        $terminal &
-    #        disown &&
-    #        echo "cd $HOME/jorisify/; ./jorisify.sh" | xclip -sel clip
-    #        echo "Please relaunch this script from $terminal!"; echo
-    #        echo "The command has already been copied to your clipboard!"
-    #       exit
-    #    else
-    #        clear
-    #    fi
-    #fi
-
-    # Switch terminal
     terminal=$(dialog --stdout --backtitle "Jorisify" --title "Favorite Terminal" --inputbox \
     "What is your favorite terminal emulator? (e.g. xfce4-terminal)" 8 40)
-    
+
     if dialog --stdout --title "Switch Terminal Emulator" \
     --backtitle "Jorisify" --yesno "Would you like to switch to $terminal?" 10 50; then 
         clear; echo
@@ -156,13 +134,10 @@ two() {
     git clone git@gitlab.com:jorisvandijk/kee.git $HOME/Documents/Kee
     git clone git@gitlab.com:jorisvandijk/jorisify.git $HOME/Jorisify
 
+    # Stow magic
     cd $HOME/Dotfiles/ || return
     for d in *; do stow -v -t ~ "$d" ;done
-    if [ -n "$1" ]; then
-    $1
-    else
-    menu
-    fi
+
     # Setting up Vundle for Vim
     git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
@@ -174,8 +149,6 @@ two() {
     clear
     dialog --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
     That's all folks!\n\nFor Optimus to function correctly, please reboot!" 20 100
-    clear
-    exit
     }
 
 if [ -n "$1" ]; then
@@ -183,3 +156,4 @@ if [ -n "$1" ]; then
 else
   one
 fi
+exit
