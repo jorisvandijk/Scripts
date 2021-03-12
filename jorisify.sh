@@ -19,8 +19,8 @@ exit 1
 fi
 
 # Set user and home
-#user=$SUDO_USER
-#home="/home/$user"
+user=$SUDO_USER
+home="/home/$user"
 #
 ## Check directory
 #if [[ $PWD == $home/jorisify ]]; then
@@ -115,12 +115,12 @@ sudo -u $user git clone git@gitlab.com:jorisvandijk/jorisify.git $home/Jorisify
 
 # Stow magic
 cd $home/Dotfiles/ || return
-for d in *; do stow -v -t ~ "$d" ;done
+for d in *; do sudo -u $user stow -v -t ~ "$d" ;done
 cd $home || return
 
 # Setting up Vundle for Vim
-git clone https://github.com/VundleVim/Vundle.vim.git $home/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
+sudo -u $user git clone https://github.com/VundleVim/Vundle.vim.git $home/.vim/bundle/Vundle.vim
+sudo -u $user vim +PluginInstall +qall
 
 # Fix permissions
 sudo -u $user sudo chown -R $user:$user $home
