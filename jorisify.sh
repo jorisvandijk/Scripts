@@ -133,7 +133,7 @@ clear
 echo "Installation aborted."
 exit
 fi
-clear
-whiptail --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
-That's all folks!\n\nFor Optimus to function correctly, please reboot!" 20 100
+#clear
+#whiptail --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
+#That's all folks!\n\nFor Optimus to function correctly, please reboot!" 20 100
 exit
