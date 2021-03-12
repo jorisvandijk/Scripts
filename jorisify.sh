@@ -55,10 +55,12 @@ else
 if dialog --stdout --title "Functionality" \
 --backtitle "Jorisify" --yesno "Would you like to use $terminal instead of  \
 $curterm?" 10 50; then 
-clear
-echo "Please relaunch this script from $terminal!"
+clear; echo
 $terminal &
 disown &&
+echo "cd $HOME/jorisify/; ./jorisify.sh" | xclip -sel clip
+echo "Please relaunch this script from $terminal!"; echo
+echo "The command has already been copied to your clipboard!"
 exit
 else
 clear
