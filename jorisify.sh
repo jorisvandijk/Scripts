@@ -43,10 +43,10 @@ home="/home/$user"
 #fi
 #
 ## Warn user of dangers
-#if whiptail --title "Warning!" \
-#--backtitle "Jorisify" --yesno "This script does irreversable damage to your system! \
-#are you sure you want to continue?" 10 50 3>&1 1>&2 2>&3; then
-#
+if whiptail --title "Warning!" \
+--backtitle "Jorisify" --yesno "This script does irreversable damage to your system! \
+are you sure you want to continue?" 10 50 3>&1 1>&2 2>&3; then
+
 ## Install needed applications
 #echo "Updating and installing needed applications..."
 #pacman -Syyu --noconfirm firefox xclip
@@ -78,7 +78,7 @@ home="/home/$user"
 ## Installing pacman packages
 #clear
 #pacman -S --noconfirm $(cat pkglist.txt|xargs)
-#
+su - $user
 ## Install yay
 #sudo -u $user git clone https://aur.archlinux.org/yay.git
 #cd yay
@@ -101,18 +101,17 @@ home="/home/$user"
 ## Backlight fix
 #chmod +s /usr/bin/light
 #gpasswd -a $user video
-
+echo $USER
 # Grab GitLab repositories
-sudo -u $user git clone git@gitlab.com:jorisvandijk/scripts.git $home/Scripts
-sudo -u $user git clone git@gitlab.com:jorisvandijk/dotfiles.git $home/Dotfiles
-sudo -u $user git clone git@gitlab.com:jorisvandijk/wallpapers.git $home/Pictures/wallpapers
-sudo -u $user git clone git@gitlab.com:jorisvandijk/notes.git $home/Documents/Notes
-sudo -u $user git clone git@gitlab.com:jorisvandijk/freetube.git $home/.config/FreeTube
-sudo -u $user git clone git@gitlab.com:jorisvandijk/firefox.git $home/.mozilla/firefox
-sudo -u $user git clone git@gitlab.com:jorisvandijk/kee.git $home/Documents/Kee
-sudo -u $user git clone git@gitlab.com:jorisvandijk/jorisify.git $home/Jorisify
+git clone git@gitlab.com:jorisvandijk/scripts.git $home/Scripts
+git clone git@gitlab.com:jorisvandijk/dotfiles.git $home/Dotfiles
+git clone git@gitlab.com:jorisvandijk/wallpapers.git $home/Pictures/wallpapers
+git clone git@gitlab.com:jorisvandijk/notes.git $home/Documents/Notes
+git clone git@gitlab.com:jorisvandijk/freetube.git $home/.config/FreeTube
+git clone git@gitlab.com:jorisvandijk/firefox.git $home/.mozilla/firefox
+git clone git@gitlab.com:jorisvandijk/kee.git $home/Documents/Kee
+git clone git@gitlab.com:jorisvandijk/jorisify.git $home/Jorisify
 
-su - $user
 # Stow magic
 cd $home/Dotfiles/ || return
 for d in *; do stow -v -t ~ "$d" ;done
