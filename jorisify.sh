@@ -29,23 +29,25 @@ if [[ -f "$FILE" ]]; then
 fi
 
 # Warn user of dangers
-if whiptail --title "Warning!" \
+if dialog --title "Warning!" \
 --backtitle "Jorisify" --yesno "This script does irreversable damage to your system! \
 are you sure you want to continue?" 10 50 3>&1 1>&2 2>&3; then
 
+# Get root privileges
+printf '%s\n' "$(dialog --title "Root/Sudo password" --backtitle "Jorisify" --output-fd 1 --passwordbox "Please enter root password:" 10 40)" | sudo -Svp ''
+clear
+
 # Install needed applications
-printf '%s\n' "$(dialog --backtitle "Jorisify" --output-fd 1 --title "Root password" --passwordbox \
-"Please enter root password:" 10 30)" | \
-sudo -Svp '' && pacman -Syyu --noconfirm firefox xclip
+pacman -Syyu --noconfirm firefox xclip
 
 # Git setup
-GU=$(whiptail --backtitle "Jorisify" --title "Git username" --inputbox \
+GU=$(dialog --backtitle "Jorisify" --title "Git username" --inputbox \
 "What is your git global username? (e.g. Joris)" 8 40 3>&1 1>&2 2>&3 3>&- )
 
-GE=$(whiptail --backtitle "Jorisify" --title "Git email address" --inputbox \
+GE=$(dialog --backtitle "Jorisify" --title "Git email address" --inputbox \
 "What is your git email address?" 8 40 3>&1 1>&2 2>&3 3>&- )
 
-GN=$(whiptail --backtitle "Jorisify" --title "Git system name" --inputbox \
+GN=$(dialog --backtitle "Jorisify" --title "Git system name" --inputbox \
 "What name would you like this system to get on GitLab? (e.g. JorisPC)" 8 40 3>&1 1>&2 2>&3 3>&- )
 
 git config --global user.name ${GU}
@@ -55,7 +57,7 @@ git config --global user.email ${GE}
 ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N "" -C "$GN"
 cat $HOME/.ssh/id_rsa.pub | xclip -sel clip
 
-whiptail --backtitle "Jorisify" --title "SSH key for GitLab" --msgbox "\
+dialog --backtitle "Jorisify" --title "SSH key for GitLab" --msgbox "\
 Now we have to add this new system's SSH key to your GitLab account. \
 The key has already been copied to your clipboard!\n\n\
 CTRL+click this link: https://gitlab.com/-/profile/keys\n\n\
@@ -69,7 +71,7 @@ sudo pacman -S --noconfirm $(cat pkglist.txt|xargs)
 # Install yay
 git clone https://aur.archlinux.org/yay.git
 cd yay
-makepkg -si
+makepkg -si --noconfirm
 cd ..
 rm -rf yay
 yay -S --noconfirm --removemake $(cat pkglist_aur.txt|xargs)
@@ -117,6 +119,6 @@ echo "Installation aborted."
 exit
 fi
 #clear
-#whiptail --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
+#dialog --backtitle "Jorisify" --title "Jorisification complete!" --msgbox "\
 #That's all folks!\n\nFor Optimus to function correctly, please reboot!" 20 100
 exit
