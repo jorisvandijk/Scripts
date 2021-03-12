@@ -103,62 +103,15 @@ chmod +s /usr/bin/light
 gpasswd -a $user video
 
 # Grab GitLab repositories
+git clone git@gitlab.com:jorisvandijk/scripts.git $home/Scripts
+git clone git@gitlab.com:jorisvandijk/dotfiles.git $home/Dotfiles
+git clone git@gitlab.com:jorisvandijk/wallpapers.git $home/Pictures/wallpapers
+git clone git@gitlab.com:jorisvandijk/notes.git $home/Documents/Notes
+git clone git@gitlab.com:jorisvandijk/freetube.git $home/.config/FreeTube
+git clone git@gitlab.com:jorisvandijk/firefox.git $home/.mozilla/firefox
+git clone git@gitlab.com:jorisvandijk/kee.git $home/Documents/Kee
+git clone git@gitlab.com:jorisvandijk/jorisify.git $home/Jorisify
 
-# Scripts
-git clone https://gitlab.com/jorisvandijk/scripts.git $home/Scripts
-cd $home/Scripts
-git remote set-url origin git@gitlab.com:jorisvandijk/scripts.git
-git remote -v
-cd $home || return
-
-# Dotfiles
-git clone https://gitlab.com/jorisvandijk/dotfiles.git $home/Dotfiles
-cd $home/Dotfiles
-git remote set-url origin git@gitlab.com:jorisvandijk/dotfiles.git
-git remote -v
-cd $home || return   
-
-# Wallpapers
-git clone https://gitlab.com/jorisvandijk/wallpapers.git $home/Pictures/wallpapers
-cd $home/Pictures/wallpapers
-git remote set-url origin git@gitlab.com:jorisvandijk/wallpapers.git
-git remote -v
-cd $home || return
-
-#Notes
-git clone https://gitlab.com/jorisvandijk/notes.git $home/Documents/Notes
-cd $home/Documents/Notes
-git remote set-url origin git@gitlab.com:jorisvandijk/notes.git
-git remote -v
-cd $home || return
-
-# FreeTube
-git clone https://gitlab.com/jorisvandijk/freetube.git $home/.config/FreeTube
-cd $home/.config/FreeTube
-git remote set-url origin git@gitlab.com:jorisvandijk/freetube.git
-git remote -v
-cd $home || return
-
-# Firefox
-git clone https://gitlab.com/jorisvandijk/firefox.git $home/.mozilla/firefox
-cd $home/.mozilla/firefox/
-git remote set-url origin git@gitlab.com:jorisvandijk/firefox.git
-git remote -v
-cd $home || return
-
-# Kee
-git clone https://gitlab.com/jorisvandijk/kee.git $home/Documents/Kee
-cd $home/Documents/Kee
-git remote set-url origin git@gitlab.com:jorisvandijk/kee.git
-git remote -v
-cd $home || return
-
-# Jorisify
-git clone https://gitlab.com/jorisvandijk/jorisify.git $home/Jorisify
-cd $home/Jorisify
-git remote set-url origin git@gitlab.com:jorisvandijk/jorisify.git
-git remote -v
-cd $home || return
 
 # Stow magic
 cd $home/Dotfiles/ || return

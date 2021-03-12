@@ -2,10 +2,9 @@ autotiling
 chrysalis-bin
 freetube-bin
 micro
+nordic-theme-git
 optimus-manager 
 otf-code-new-roman
-qogir-gtk-theme
-qogir-icon-theme
 spotify  
 ttf-andika
 ttf-comfortaa

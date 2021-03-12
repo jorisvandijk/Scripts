@@ -2,7 +2,6 @@ acpi
 awesome-terminal-fonts
 code
 dunst 
-elementary-icon-theme 
 epdfview
 exa 
 feh
@@ -10,7 +9,6 @@ firefox
 gimp 
 git 
 gparted
-gtk-theme-elementary 
 keepassxc
 leafpad
 lib32-nvidia-utils
@@ -35,5 +33,6 @@ ttf-jetbrains-mono
 ttf-liberation
 unclutter 
 virtualbox
+xcursor-comix
 xfce4-power-manager
 xfce4-terminal
