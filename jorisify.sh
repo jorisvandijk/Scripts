@@ -82,9 +82,9 @@ rm -rf yay
 yay -S --noconfirm --removemake $(cat pkglist_aur.txt|xargs)
 
 # Nuking old install files if present
-$HOME || return
--rf $HOME/.config
-$HOME/.bashrc 
+cd $HOME || return
+rm -rf $HOME/.config
+cd $HOME/.bashrc 
 
 # Virtualbox fix
 sudo modprobe vboxdrv
@@ -97,7 +97,7 @@ sudo chmod +s /usr/bin/light
 sudo gpasswd -a $USER video
 
 # Grab GitLab repositories
-ssh-keyscan github.com >> ~/.ssh/known_hosts
+cat gitlab_keys >> ~/.ssh/known_hosts
 git clone git@gitlab.com:jorisvandijk/scripts.git $HOME/Scripts
 git clone git@gitlab.com:jorisvandijk/dotfiles.git $HOME/Dotfiles
 git clone git@gitlab.com:jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
