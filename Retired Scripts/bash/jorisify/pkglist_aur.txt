@@ -1,10 +1,1 @@
-autotiling 
-chrysalis-bin
-freetube-bin
-micro
-nordic-darker-theme-git
-optimus-manager 
-otf-code-new-roman
-spotify  
-ttf-andika
-ttf-comfortaa
+Add software to this file in a list, one application per line. <- remove this line!
