@@ -97,7 +97,7 @@ sudo chmod +s /usr/bin/light
 sudo gpasswd -a $USER video
 
 # Grab GitLab repositories
-cat gitlab_keys >> ~/.ssh/known_hosts
+cat $HOME/jorisify/gitlab_keys >> $HOME/.ssh/known_hosts
 git clone git@gitlab.com:jorisvandijk/scripts.git $HOME/Scripts
 git clone git@gitlab.com:jorisvandijk/dotfiles.git $HOME/Dotfiles
 git clone git@gitlab.com:jorisvandijk/wallpapers.git $HOME/Pictures/wallpapers
