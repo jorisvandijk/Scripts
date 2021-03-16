@@ -20,7 +20,7 @@ fi
 
 repo=$one$two$three$four$five
 
-notify-send -u normal -t 15000 "$(
+notify-send -u critical -t 15000 "$(
     echo $(date +"%A %-d %B %Y"; echo " - "; date +"%R")
     echo
     bat=$(acpi | awk {'print $3'})
@@ -54,8 +54,8 @@ notify-send -u normal -t 15000 "$(
     echo
     echo $(df -h | grep /dev/nvme0n1p2 | awk '{print $4}'; echo " free space")
     echo $(free -h | grep Mem | awk '{print $4}'; echo " free memory")
-    echo
-    echo $(echo "Connected to"; iwgetid -r;)
+    #echo
+    #echo $(echo "Connected to"; iwgetid -r;)
     echo
     spotify=$(python $HOME/Projects/python/spotify.py)
     if [[ $spotify = "" ]]; then
