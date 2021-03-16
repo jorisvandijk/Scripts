@@ -7,22 +7,20 @@
 #
 #          Published under GPL-3.0-or-later
 
-if [[ $(cd $HOME/Scripts/; git status --porcelain) ]]; then one="Scripts " 
+if [[ $(cd $HOME/Projects/bash/; git status --porcelain) ]]; then one="Bash " 
 fi
-if [[ $(cd $HOME/Dotfiles/; git status --porcelain) ]]; then two="Dotfiles " 
+if [[ $(cd $HOME/Projects/python/; git status --porcelain) ]]; then two="Python " 
 fi
-if [[ $(cd $HOME/Documents/Kee/; git status --porcelain) ]]; then three="Kee " 
+if [[ $(cd $HOME/Projects/dotfiles/; git status --porcelain) ]]; then three="Dotfiles " 
 fi
-#if [[ $(cd $HOME/.config/FreeTube/; git status --porcelain) ]]; then four="FreeTube " 
-#fi
-if [[ $(cd $HOME/Pictures/wallpapers/; git status --porcelain) ]]; then five="Wallpapers " 
+if [[ $(cd $HOME/Documents/Kee/; git status --porcelain) ]]; then four="Kee " 
 fi
-if [[ $(cd $HOME/Documents/Notes/; git status --porcelain) ]]; then six="Notes " 
+if [[ $(cd $HOME/Documents/Notes/; git status --porcelain) ]]; then five="Notes " 
 fi
 
-repo=$one$two$three$five$six
+repo=$one$two$three$four$five
 
-notify-send -u critical -t 15000 "$(
+notify-send -u normal -t 15000 "$(
     echo $(date +"%A %-d %B %Y"; echo " - "; date +"%R")
     echo
     bat=$(acpi | awk {'print $3'})
@@ -59,7 +57,7 @@ notify-send -u critical -t 15000 "$(
     echo
     echo $(echo "Connected to"; iwgetid -r;)
     echo
-    spotify=$(python $HOME/Scripts/python/spotify.py)
+    spotify=$(python $HOME/Projects/python/spotify.py)
     if [[ $spotify = "" ]]; then
         echo "No song is currently playing"
     else
