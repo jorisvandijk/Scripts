@@ -1,6 +1,6 @@
 #!/bin/bash
 
-device=13
+device=18
 state=`xinput list-props "$device" | grep "Device Enabled" | grep -o "[01]$"`
 
 if [ $state == '1' ];then
